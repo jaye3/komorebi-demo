@@ -26,7 +26,7 @@ class Patient(Base):
     mobile_no = Column(String(20), nullable=False)
     other_remarks = Column(Text)
     
-    doctors = relationship("DoctorPatientAssignment", back_populates="patient")
+    # doctors = relationship("DoctorPatientAssignment", back_populates="patient")
     appointments = relationship("AppointmentDetails", back_populates="patient")
     conversations = relationship("PatientConversation", back_populates="patient")
     survey_responses = relationship("PatientSurveyResponse", back_populates="patient")
