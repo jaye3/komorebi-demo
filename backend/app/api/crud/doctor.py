@@ -23,3 +23,6 @@ def create_doctor(db: Session, doctor: DoctorBase):
 def get_all_doctors(db: Session):
     return db.query(models.Doctor).all()
 
+
+def get_doctor_by_id(db: Session, doctor_id: int):
+    return db.query(models.Doctor).filter(models.Doctor.id == doctor_id).first()

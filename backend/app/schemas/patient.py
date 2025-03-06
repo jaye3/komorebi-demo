@@ -5,3 +5,4 @@ class PatientBase(BaseModel):
     mobile_no: str
     other_remarks: str
     doctor_assigned:str
+    email:str
