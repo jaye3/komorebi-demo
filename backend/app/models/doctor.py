@@ -1,8 +1,4 @@
-'''
-This is where the doctor model will be
-'''
-
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
 from sqlalchemy.orm import relationship
 from app.database import Base
 
