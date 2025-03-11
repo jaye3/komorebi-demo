@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from app.database import engine
-from app import models  # ✅ This now works because of __init__.py
+from backend.app.database import engine
+from backend.app import models  # ✅ This now works because of __init__.py
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
 # Import API routes
-from app.api.routes import doctor, patient, appointment, patient_conversation,patient_survey
+from backend.app.api.routes import doctor, patient, appointment, patient_conversation,patient_survey
 
 
 app = FastAPI()
