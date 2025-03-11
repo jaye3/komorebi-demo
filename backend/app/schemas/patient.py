@@ -6,3 +6,4 @@ class PatientBase(BaseModel):
     other_remarks: str
     doctor_assigned:str
     email:str
+    telegram_username:str

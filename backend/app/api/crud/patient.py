@@ -19,10 +19,14 @@ def create_patient(db: Session, patient: PatientBase):
         mobile_no = patient.mobile_no,
         other_remarks= patient.other_remarks,
         doctor_assigned = patient.doctor_assigned,
-        email = patient.email
+        email = patient.email,
+        telegram_username = patient.telegram_username
     )
     db.add(new_patient)
     db.commit()
     db.refresh(new_patient)
     
     return new_patient
+
+def get_patient_find_by_telegram_username(db:Session, telegram_username:str):
+    return db.query(models.Patient).filter(models.Patient.telegram_username == telegram_username).first()

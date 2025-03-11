@@ -11,7 +11,7 @@ class Patient(Base):
     mobile_no = Column(String(20), nullable=False)  # ✅ Added length
     other_remarks = Column(Text, nullable=True)
     doctor_assigned = Column(Integer, ForeignKey("doctors.id"), nullable=False)
-
+    telegram_username = Column(String(100), nullable=True)
     
     # doctors = relationship("DoctorPatientAssignment", back_populates="patient")
     appointments = relationship("AppointmentDetails", back_populates="patient")
