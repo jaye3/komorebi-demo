@@ -5,9 +5,9 @@ If its CRUD - maybe can made another folder like /api/crud/ and move this there 
 # /api/routes/doctor.py
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
-from app.schemas.doctor import DoctorBase
-from app.api.crud.doctor import create_doctor,get_all_doctors, get_doctor_by_id  # Correct import
-from app.database import SessionLocal
+from backend.app.schemas.doctor import DoctorBase
+from backend.app.api.crud.doctor import create_doctor,get_all_doctors, get_doctor_by_id  # Correct import
+from backend.app.database import SessionLocal
 
 router = APIRouter()
 

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
-from app.services.chatbot_insights_service import (
+from backend.app.services.chatbot_insights_service import (
     get_patient_reported_outcomes,
     get_patient_risk_alert,
     get_suggested_actions
 )
-from app.database import SessionLocal
+from backend.app.database import SessionLocal
 
 router = APIRouter()
 

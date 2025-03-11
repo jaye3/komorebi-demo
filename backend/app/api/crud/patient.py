@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app import models
-from app.schemas.patient import PatientBase
+from backend.app import models
+from backend.app.schemas.patient import PatientBase
 
 def get_all_patient(db:Session):
     return db.query(models.Patient).all()
