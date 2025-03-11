@@ -47,6 +47,10 @@ async def booking_options_handler(update: Update, context: ContextTypes.DEFAULT_
     query = update.callback_query
     await query.answer()
 
+    if len(AVAILABLE_SLOTS) == 0:
+        await query.message.reply_text("Apologies, it seems our clinic is fully-booked for the next 2 weeks.\n\nIf you need an urgent consultation, please feel free to call us at +65[number] to see if any consultation slots have been freed up.")
+        return ConversationHandler.END
+
     action = query.data
 
     if action == "start":
