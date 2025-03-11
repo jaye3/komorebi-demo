@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app import models
 from app.schemas.appointment import AppointmentBase
 from datetime import datetime
@@ -50,6 +50,28 @@ def update_appointment_status(db: Session, appointment_id: int, new_date_time: s
 
     appointment.status = "canceled"
     appointment.date_time = datetime.strptime(new_date_time, "%Y-%m-%d %H:%M:%S")
+
+    db.commit()
+    db.refresh(appointment)
+    return appointment
+
+def get_available_appointments(db: Session):
+    return (
+        db.query(models.AppointmentDetails)
+        .options(joinedload(models.AppointmentDetails.doctor))  # Eagerly loads related doctor
+        .filter(models.AppointmentDetails.status == "none")
+        .order_by(models.AppointmentDetails.date_time.asc())
+        .all()
+    )
+
+
+def book_appointment_status(db: Session, appointment_id: int, patient_id: int):
+    appointment = db.query(models.AppointmentDetails).filter(models.AppointmentDetails.id == appointment_id).first()
+    if not appointment:
+        return None
+
+    appointment.status = "scheduled"
+    appointment.patient_id = patient_id
 
     db.commit()
     db.refresh(appointment)

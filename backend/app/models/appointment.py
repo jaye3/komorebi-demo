@@ -8,7 +8,7 @@ class AppointmentDetails(Base):
     id = Column(Integer, primary_key=True, index=True)
     date_time = Column(DateTime, nullable=False)
     doctor_id = Column(Integer, ForeignKey('doctors.id'), nullable=False)
-    patient_id = Column(Integer, ForeignKey('patients.id'), nullable=False)
+    patient_id = Column(Integer, ForeignKey('patients.id'), nullable=True)
     status = Column(String(20), default="none", nullable=False)
     patient_survey_summary = Column(Text)
     doctor_remarks = Column(Text)

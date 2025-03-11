@@ -25,6 +25,11 @@ from utils.states import *
 
 # Start command handling
 async def start_command(update: Update, type: ContextTypes.DEFAULT_TYPE):
+    # to check and disable duplicate sending of /start
+    if type.user_data.get("start_komo", False):
+        return
+    
+    type.user_data["start_komo"] = True
     await update.message.reply_text(
         "Hello! I'm Komo, your personal health assistant. Nice to meet you!"
         )
@@ -41,7 +46,7 @@ async def help_command(update: Update, type: ContextTypes.DEFAULT_TYPE):
     
 # User chooses action via Keyboard Buttons
 async def choose_action(update: Update, type: ContextTypes.DEFAULT_TYPE):
-    buttons = [["Register"], ["Appointment"], ["Manage"]]
+    buttons = [["Register"], ["Book Appointment"], ["Manage"]]
 
     await update.message.reply_text(
         "How can I help you today?\n"
@@ -136,7 +141,7 @@ if __name__ == "__main__":
     TOKEN = os.environ["TELEGRAM_TOKEN"]
     app = Application.builder().token(TOKEN).build()
 
-    STATE_KEYWORDS = ["Register"]
+    STATE_KEYWORDS = ["Register", "Book Appointment"]
 
     # Setting Commands
     app.add_handler(CommandHandler('start', start_command))
@@ -162,16 +167,16 @@ if __name__ == "__main__":
     )
 
     # 🔹 Booking Conversation Handler
-    # booking_handler = ConversationHandler(
-    #     entry_points=[MessageHandler(filters.Regex("(?i)^Book Appointment$"), booking_start_handler)],
-    #     states={
-    #         BOOKING_DATE_TIME: [CallbackQueryHandler(filters.TEXT, book_continue)],
-    #         BOOKING_CONFIRM: [CallbackQueryHandler()],
-    #         BOOKING_REMARKS: [MessageHandler], 
-    #         BOOKING_END: 
-    #     },
-    #     fallbacks=[CommandHandler("cancel", cancel)],
-    # )
+    booking_handler = ConversationHandler(
+        entry_points=[MessageHandler(filters.Regex("(?i)^Book Appointment$"), booking_start_handler)],
+        states={
+            BOOKING_DATE_TIME: [CallbackQueryHandler(booking_options_handler)],
+            BOOKING_CONFIRM: [CallbackQueryHandler(booking_confirm_handler)],
+            # BOOKING_REMARKS: [MessageHandler], 
+            # BOOKING_END: 
+        },
+        fallbacks=[CommandHandler("cancel", cancel)],
+    )
 
     # # 🔹 Management Conversation Handler
     # manage_handler = ConversationHandler(
@@ -187,7 +192,7 @@ if __name__ == "__main__":
 
     # Add Handlers 
     app.add_handler(reg_handler)
-    # app.add_handler(book_handler)
+    app.add_handler(booking_handler)
     # app.add_handler(manage_handler)
 
     ########

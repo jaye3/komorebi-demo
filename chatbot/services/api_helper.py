@@ -1,7 +1,6 @@
 import os
 import httpx
 from dotenv import load_dotenv
-import time
 import asyncio
 from utils.client import client
 
@@ -33,7 +32,7 @@ async def get_from_api(data: dict, api_path: str) -> bool:
             response = await client.get(api_url, params=data, headers=headers)
             response.raise_for_status()
 
-            print(f"✅ Successfully retrieved on attempt {attempt}: {response.json()}")
+            print(f"✅ Successfully retrieved on attempt {attempt}")
             return response.json()
 
         except httpx.HTTPStatusError as exc:
@@ -66,7 +65,8 @@ async def create_to_api(data: dict, api_path: str) -> bool:
             response = await client.post(api_url, json=data, headers=headers)
             response.raise_for_status()
 
-            print(f"✅ Successfully created on attempt {attempt}: {response.json()}")
+            # print(f"✅ Successfully created on attempt {attempt}: {response.json()}")
+            print(f"✅ Successfully created on attempt {attempt}")
             return True
 
         except httpx.HTTPStatusError as exc:
@@ -88,17 +88,14 @@ async def create_to_api(data: dict, api_path: str) -> bool:
 
 async def update_to_api(data: dict, api_path: str) -> bool:
     api_url = f"{BASE_URL}/api{api_path}/update/"  
-
-    headers = {
-        "Content-Type": "application/json",
-    }
+    print(f"Updating to {api_url}")
 
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            response = await client.put(api_url, json=data, headers=headers)
+            response = await client.put(api_url, json=data)
             response.raise_for_status()
 
-            print(f"✅ Successfully updated on attempt {attempt}: {response.json()}")
+            print(f"✅ Successfully updated on attempt {attempt}")
             return True
 
         except httpx.HTTPStatusError as exc:
