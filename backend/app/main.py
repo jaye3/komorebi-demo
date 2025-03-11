@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from backend.app.database import engine
 from backend.app import models  # ✅ This now works because of __init__.py
 import os
+import uvicorn
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -26,6 +27,5 @@ async def root():
     return {"message": "Test root"}
 
 if __name__ == "__main__":
-    import uvicorn
     # Run FastAPI server
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))

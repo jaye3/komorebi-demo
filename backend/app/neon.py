@@ -7,7 +7,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-conn_str = f"dbname={os.getenv('PROJECT')} user={os.getenv('USERNAME')} password={os.getenv('PASSWORD')} host={os.getenv('HOST')} port={os.getenv('DB_PORT')} sslmode=require"
+DATABASE_URL=os.getenv("URL_DATABASE")
+conn_str = psycopg2.connect(DATABASE_URL)
+# conn_str = f"dbname={os.getenv('PROJECT')} user={os.getenv('USERNAME')} password={os.getenv('PASSWORD')} host={os.getenv('HOST')} port={os.getenv('DB_PORT')} sslmode=require"
 
 import psycopg2
 conn = psycopg2.connect(conn_str)
