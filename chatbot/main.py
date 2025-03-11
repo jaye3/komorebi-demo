@@ -85,13 +85,13 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if ("hey komo" in user_text) or ("hi komo" in user_text):
         print("Free chat started....")
         context.user_data["free_chat"] = True
+        await update.message.reply_text("<i>(You are now starting a free chat with Komo! \n\nFeel free to share about any worries you have. When you're ready to end the conversation, just say <b>'thanks komo'</b>!)</i>",
+                                        parse_mode=ParseMode.HTML)
     
     # Checking if free chat is active
     if context.user_data.get("free_chat", False):
         # Save message to patient_conversation table
         if user_info != None:
-            await update.message.reply_text("<i>(You are now starting a free chat with Komo! \n\nFeel free to share about any worries you have. When you're ready to end the conversation, just say <b>'thanks komo'</b>!)</i>",
-                                        parse_mode=ParseMode.HTML)
             message_date: datetime = update.message.date
             if user_info != None:
                 data = {
