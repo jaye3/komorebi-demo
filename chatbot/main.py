@@ -138,7 +138,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     print("Starting bot....")
 
-    TOKEN = os.environ["TELEGRAM_TOKEN"]
+    TOKEN = os.getenv("TELEGRAM_TOKEN")
     app = Application.builder().token(TOKEN).build()
 
     STATE_KEYWORDS = ["Register", "Book Appointment"]
