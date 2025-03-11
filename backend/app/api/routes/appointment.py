@@ -41,8 +41,7 @@ def get_available_appointments_route(db: Session = Depends(get_db)):
 # Book appointment (update slot to schedeuled status)
 @router.put("/book/{appointment_id}/update/")
 def book_appointment_route(appointment_id: int, booking: AppointmentBooking, db: Session = Depends(get_db)):
-    patient_id = booking.patient_id
-    booked_appointment = book_appointment_status(db, appointment_id, patient_id)
+    booked_appointment = book_appointment_status(db, appointment_id, booking.patient_id, booking.booking_remarks)
     if not booked_appointment:
         raise HTTPException(status_code=404, detail="Appointment slot not found or could not be booked")
     return booked_appointment

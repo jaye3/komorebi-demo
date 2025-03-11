@@ -10,6 +10,7 @@ class AppointmentDetails(Base):
     doctor_id = Column(Integer, ForeignKey('doctors.id'), nullable=False)
     patient_id = Column(Integer, ForeignKey('patients.id'), nullable=True)
     status = Column(String(20), default="none", nullable=False)
+    booking_remarks = Column(Text)
     patient_survey_summary = Column(Text)
     doctor_remarks = Column(Text)
     

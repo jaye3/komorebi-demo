@@ -9,6 +9,7 @@ class AppointmentBase(BaseModel):
     doctor_id: int
     patient_id: Optional[int]
     status: str 
+    booking_remarks: Optional[str]
     patient_survey_summary: Optional[str]
     doctor_remarks: Optional[str]
 
@@ -26,3 +27,4 @@ class AppointmentDetailsResponse(BaseModel):
 
 class AppointmentBooking(BaseModel):
     patient_id: int
+    booking_remarks: Optional[str]

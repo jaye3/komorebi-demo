@@ -171,9 +171,8 @@ if __name__ == "__main__":
         entry_points=[MessageHandler(filters.Regex("(?i)^Book Appointment$"), booking_start_handler)],
         states={
             BOOKING_DATE_TIME: [CallbackQueryHandler(booking_options_handler)],
+            BOOKING_REMARKS: [MessageHandler(filters.TEXT, booking_remarks_handler)], 
             BOOKING_CONFIRM: [CallbackQueryHandler(booking_confirm_handler)],
-            # BOOKING_REMARKS: [MessageHandler], 
-            # BOOKING_END: 
         },
         fallbacks=[CommandHandler("cancel", cancel)],
     )

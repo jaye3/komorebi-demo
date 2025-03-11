@@ -64,14 +64,15 @@ def get_available_appointments(db: Session):
         .all()
     )
 
-
-def book_appointment_status(db: Session, appointment_id: int, patient_id: int):
+# Update details when booking new appointment
+def book_appointment_status(db: Session, appointment_id: int, patient_id: int, booking_remarks: str):
     appointment = db.query(models.AppointmentDetails).filter(models.AppointmentDetails.id == appointment_id).first()
     if not appointment:
         return None
 
     appointment.status = "scheduled"
     appointment.patient_id = patient_id
+    appointment.booking_remarks = booking_remarks
 
     db.commit()
     db.refresh(appointment)

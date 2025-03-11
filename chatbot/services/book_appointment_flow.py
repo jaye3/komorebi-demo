@@ -66,17 +66,26 @@ async def booking_options_handler(update: Update, context: ContextTypes.DEFAULT_
     
     elif "|" in action:
         await query.answer()
-        appt_id, datetime_str, doctor_name = query.data.split('|')
-        context.user_data["book_appt_id"] = appt_id
+        context.user_data["appt_id"], context.user_data["booking_datetime"], context.user_data["booking_docname"] = query.data.split('|')
 
-        options = [
+        await query.message.reply_text("Noted on the appointment! Lastly, is there anything you'd like to let your doctor know before the appointment?\n\ne.g. symptoms, current situation, urgency, treatment/recovery updates, etc.")
+        await query.message.reply_text("(If you have no extra remarks, please type 'NA')")
+        return BOOKING_REMARKS
+    
+async def booking_remarks_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    remarks = update.message.text
+    context.user_data["booking_remarks"] = remarks
+
+    datetime_str = context.user_data["booking_datetime"]
+    doctor_name = context.user_data["booking_docname"]
+    options = [
             [InlineKeyboardButton("Select Other Slot", callback_data="select again")],
             [InlineKeyboardButton("Confirm Booking", callback_data=f"{datetime_str}|{doctor_name}")]
         ]
-        await query.edit_message_text(f"Great! You've chosen: \n\nDate & Time: \n{datetime_str}\n<i>* With Dr. {doctor_name}</i>\n\nPlease confirm your booking, or go back to select another slot:",
-                                      parse_mode=ParseMode.HTML,
-                                      reply_markup=InlineKeyboardMarkup(options))
-        return BOOKING_CONFIRM
+    await update.message.reply_text(f"You've chosen: \n\nDate & Time: \n<b>{datetime_str}</b>\n<i>With Dr. {doctor_name}</i>\n\nYour Remarks: \n<i>{remarks}</i>\n\nPlease confirm your booking, or go back to select another slot:",
+                                    parse_mode=ParseMode.HTML,
+                                    reply_markup=InlineKeyboardMarkup(options))
+    return BOOKING_CONFIRM
     
 async def booking_confirm_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -86,16 +95,17 @@ async def booking_confirm_handler(update: Update, context: ContextTypes.DEFAULT_
         context.user_data["page"] = 0
         await show_option(AVAILABLE_SLOTS, update, context)
         return BOOKING_DATE_TIME
-    
 
-    appt_id = context.user_data["book_appt_id"]
+    # User selected Confirm
+    appt_id = context.user_data["appt_id"]
     datetime_str, doctor_name = query.data.split('|')
     
     # User confirmed choice of slot
     await query.message.reply_text("Please wait while we process your booking...")
     data = {
         "appointment_id": int(appt_id),
-        "patient_id": context.user_data["patient_id"]
+        "patient_id": context.user_data["patient_id"],
+        "booking_remarks": context.user_data["booking_remarks"]
     }
     try:
         res = await update_to_api(data, PUT_BOOK_APPOINTMENT_URL + appt_id)
