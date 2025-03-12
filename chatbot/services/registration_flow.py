@@ -125,7 +125,6 @@ async def registration_remarks_handler(update: Update, context: ContextTypes.DEF
 async def registration_confirmation_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    print(query)
 
     if query.data == "done":
         data = {
@@ -169,7 +168,7 @@ async def registration_edit_handler(update: Update, context: ContextTypes.DEFAUL
     """Handle edit button clicks and redirect to the appropriate state."""
     query = update.callback_query
     await query.answer()
-    print(query.data)  
+    print("user editing", query.data)  
 
     match query.data:
         case "name":

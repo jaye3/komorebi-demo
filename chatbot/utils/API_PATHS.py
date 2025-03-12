@@ -9,10 +9,12 @@ GET_PATIENT_FIND_BY_TELEGRAM_URL="/patients/findby/" # concatenate tele username
 
 POST_CREATE_APPOINTMENT_URL="/appointments/create/"
 GET_ALL_APPOINTMENTS_URL="/appointments/all/"
+GET_AVAILABLE_APPOINTMENTS_URL="/appointments/available/"
 GET_APPOINTMENT_BY_ID_URL="/appointments/" # concatenate appt id
 GET_APPOINTMENT_BY_PATIENT_ID_URL="/appointments/patient/"
 GET_APPOINTMENT_BY_DOCTOR_ID_URL="/appointments/doctor/"
 PUT_UPDATE_APPOINTMENT_URL="/appointments/" # concatenate appt_id, api_helper.py adds /update/ after
+PUT_BOOK_APPOINTMENT_URL="/appointments/book/" # concatenate appt_id, api_helper.py adds /update/ after
 
 POST_CREATE_CONVERSATION_URL="/conversations/"
 GET_ALL_CONVERSATIONS_URL="/conversations/getall/"
