@@ -64,7 +64,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Cancels and ends the conversation."""
 
     user = update.message.from_user
-    print(f"User {user.first_name} canceled the conversation.")
+    print(f"CANCEL: User {user.first_name} canceled the conversation.")
     await update.message.reply_text(
         "Current action has been cancelled", reply_markup=ReplyKeyboardRemove()
     )
@@ -74,6 +74,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 # Bot func
 async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_name = update.message.from_user.first_name
     # Retrieve patient's id
     user_tele = update.message.from_user["username"]
     user_info = await get_from_api(
@@ -81,11 +82,11 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     user_text: str = update.message.text.lower()
-    print(f"user sent {user_text}")
+    print(f"MAIN CHAT: User {user_name} sent {user_text}")
 
     # Check if user is starting a free chat
     if ("hey komo" in user_text) or ("hi komo" in user_text):
-        print("Free chat started....")
+        print(f"FREE CHAT: Free chat started for {user_name}....")
         context.user_data["free_chat"] = True
         await update.message.reply_text("<i>(You are now starting a free chat with Komo! \n\nFeel free to share about any worries you have. When you're ready to end the conversation, just say <b>'thanks komo'</b>!)</i>",
                                         parse_mode=ParseMode.HTML)
@@ -114,31 +115,31 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         # Ending free chat
         if ("thanks komo" in user_text) or ("thank you komo" in user_text):
-            print("end free chat")
+            print(f"FREE CHAT: end free chat for {user_name}")
             context.user_data["free_chat"] = False
             await update.message.reply_text("Thanks for sharing with me, and take care as always :)")
             return
         
         else:
-            print("getting response...")
+            print("FREE CHAT: getting response...")
             # Continue free chat
             response = gemini_response(user_text)
             await update.message.reply_text(response)
             return
     
     await update.message.reply_text(
-        "Sorry, I didn't understand that... \nIf you'd like to chat with me about your feelings, just say \"Hey Komo\" \n\nOr if you need help with registration/appointment management, feel free to use the buttons below!"
+        "Sorry, I didn't understand that... \nIf you'd like to chat with me about how you're feeling, just say \"Hey Komo\" \n\nOr if you need help with registration/appointment management, feel free to use the buttons below!"
         )
 
 ############
 
 # Error handling
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print(f"Update {update} caused error {context.error}")
+    print(f"ERROR: Update {update} caused error {context.error}")
 
 #### Running 
 if __name__ == "__main__":
-    print("Starting bot....")
+    print("MAIN: Starting bot....")
 
     TOKEN = os.getenv("TELEGRAM_TOKEN")
     app = Application.builder().token(TOKEN).build()
@@ -200,7 +201,7 @@ if __name__ == "__main__":
     ########
 
     state_handlers = "(" + "|".join(STATE_KEYWORDS) + ")"
-    print("state handlers", state_handlers)
+    print("MAIN: state handlers", state_handlers)
     # Other Message handling
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat))
 
@@ -208,7 +209,7 @@ if __name__ == "__main__":
     app.add_error_handler(error)
 
     # Ping for updates on msgs (checks every n seconds)
-    print("Polling bot...")
+    print("MAIN: Polling bot...")
     app.run_polling(poll_interval=3)
 
 

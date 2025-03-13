@@ -10,7 +10,7 @@ from telegram.ext import (
 
 async def registration_start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the conversation, display any stored data and ask user for input."""
-    print("in reg start")
+    print(f"REGISTRATION: in reg start for user {update.message.from_user.first_name}")
 
     reply_text = '''
     Let's get started! \nWould you like to use your Singpass (for SG Citizens), or register manually?
@@ -32,7 +32,7 @@ async def registration_redirect_handler(update: Update, context: ContextTypes.DE
     query = update.callback_query
     await query.answer()  # Acknowledge button press
 
-    print("query received", query.data)  
+    print("REGISTRATION: query received", query.data)  
 
     if query.data == "manual":
         await query.message.reply_text("You've chosen: Manual Registration.\n\nFirst of all, please enter your full name:")
@@ -61,10 +61,10 @@ async def registration_singpass_handler(update: Update, context: ContextTypes.DE
 async def registration_name_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     '''Registration handling after user enters full name.'''
 
-    print("in manual start")
+    print("REGISTRATION: in manual start")
 
     context.user_data["name"] = update.message.text.title()
-    print("user's new name", context.user_data["name"])
+    print("REGISTRATION: user's new name", context.user_data["name"])
 
     await update.message.reply_text("Great! Please enter your email address:")
     return REG_EMAIL
@@ -142,7 +142,7 @@ async def registration_confirmation_handler(update: Update, context: ContextType
                 await query.message.reply_text("Registration was successful - details have been shared with the doctor assigned to your appointment!")
                 return ConversationHandler.END
         except:
-            print("Error in creating patient")
+            print("REGISTRATION: Error in creating patient")
         
         await query.message.reply_text("Hmm... something went wrong when trying to register you. Please click to retry:",
                                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Re-confirm", callback_data="done")]]))
@@ -168,7 +168,7 @@ async def registration_edit_handler(update: Update, context: ContextTypes.DEFAUL
     """Handle edit button clicks and redirect to the appropriate state."""
     query = update.callback_query
     await query.answer()
-    print("user editing", query.data)  
+    print("REGISTRATION: user editing", query.data)  
 
     match query.data:
         case "name":
