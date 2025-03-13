@@ -61,19 +61,36 @@ async def choose_action(update: Update, type: ContextTypes.DEFAULT_TYPE):
 
 # Cancel action
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Cancels and ends the conversation."""
+    user = update.message.from_user
+    print(f"CANCEL: User {user.first_name} requested cancel.")
 
     if context.user_data.get("in_active_flow", False):
-        context.user_data["in_active_flow"] = False
+        # Inside conversation
+        context.user_data["in_active_flow"] = False  # Or clear() if you want
+        print("CANCEL: Cancelling inside conversation.")
+        await update.message.reply_text(
+            "Your action has been cancelled. You can /choose another action or say 'Hey Komo' to chat!",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        return ConversationHandler.END
+
+    # Outside conversation
+    print("Cancel outside conversation.")
+    if context.user_data.get("in_active_flow", None) == False:
+        print("CANCEL: Removing in_active_flow...")
+        context.user_data.pop("in_active_flow", None)
         return
+    
+    if context.user_data.get("free_chat", False):
+        print("FREE CHAT: Cancelling free chat")
+        context.user_data.pop("free_chat", None)
 
-    user = update.message.from_user
-    print(f"CANCEL: User {user.first_name} canceled the conversation.")
     await update.message.reply_text(
-        "Current action has been cancelled.\n\nYou can /choose another action, or start your message with 'Hey Komo' if you'd like to talk!", reply_markup=ReplyKeyboardRemove()
+        "There's nothing to cancel. You can /choose another action or say 'Hey Komo' to chat!"
     )
-
     return ConversationHandler.END
+
+
 #########################################################
 
 # Bot func
@@ -189,18 +206,27 @@ if __name__ == "__main__":
     # )
 
     # Survey
+
+    # Debug catcher
+    async def debug_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if update.message:
+            print(f"[DEBUG] Message received: {update.message.text!r}")
+        elif update.callback_query:
+            print(f"[DEBUG] Callback query received: {update.callback_query.data!r}")
+
+    app.add_handler(MessageHandler(filters.ALL, debug_all_messages), group=99)
     
 
     # Add Handlers 
         # Registration handlers
-    app.add_handler(reg_handler, group=0)
-    app.add_handler(booking_handler, group=0)
+    app.add_handler(reg_handler)
+    app.add_handler(booking_handler)
 
         # Setting commands
-    app.add_handler(CommandHandler('start', start_command), group=1)
-    app.add_handler(CommandHandler('help', help_command), group=1)
-    app.add_handler(CommandHandler('choose', choose_action), group=1)
-    app.add_handler(CommandHandler('cancel', cancel), group=1)
+    app.add_handler(CommandHandler('start', start_command))
+    app.add_handler(CommandHandler('help', help_command))
+    app.add_handler(CommandHandler('choose', choose_action))
+    app.add_handler(CommandHandler('cancel', cancel))
     # app.add_handler(manage_handler)
 
     ########
@@ -208,7 +234,7 @@ if __name__ == "__main__":
     state_handlers = "(" + "|".join(STATE_KEYWORDS) + ")"
     print("MAIN: state handlers", state_handlers)
     # Other Message handling
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat), group=2)
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat))
 
     # Error handling
     app.add_error_handler(error)
