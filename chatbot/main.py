@@ -26,9 +26,10 @@ from utils.states import *
 
 # Start command handling
 async def start_command(update: Update, type: ContextTypes.DEFAULT_TYPE):
+    print(f"Komo started by user {update.message.from_user.first_name}")
     # to check and disable duplicate sending of /start
-    if type.user_data.get("start_komo", False):
-        return
+    # if type.user_data.get("start_komo", False):
+    #     return
     
     type.user_data["start_komo"] = True
     await update.message.reply_text(
