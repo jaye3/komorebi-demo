@@ -146,12 +146,6 @@ if __name__ == "__main__":
 
     STATE_KEYWORDS = ["Register", "Book Appointment"]
 
-    # Setting Commands
-    app.add_handler(CommandHandler('start', start_command))
-    app.add_handler(CommandHandler('help', help_command))
-    app.add_handler(CommandHandler('choose', choose_action))
-    app.add_handler(CommandHandler('cancel', cancel))
-
     ####################
     # Registration Handling
     reg_handler = ConversationHandler(
@@ -194,8 +188,15 @@ if __name__ == "__main__":
     
 
     # Add Handlers 
-    app.add_handler(reg_handler)
-    app.add_handler(booking_handler)
+        # Registration handlers
+    app.add_handler(reg_handler, group=0)
+    app.add_handler(booking_handler, group=0)
+
+        # Setting commands
+    app.add_handler(CommandHandler('start', start_command), group=1)
+    app.add_handler(CommandHandler('help', help_command), group=1)
+    app.add_handler(CommandHandler('choose', choose_action), group=1)
+    app.add_handler(CommandHandler('cancel', cancel), group=1)
     # app.add_handler(manage_handler)
 
     ########
@@ -203,7 +204,7 @@ if __name__ == "__main__":
     state_handlers = "(" + "|".join(STATE_KEYWORDS) + ")"
     print("MAIN: state handlers", state_handlers)
     # Other Message handling
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat), group=2)
 
     # Error handling
     app.add_error_handler(error)
