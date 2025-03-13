@@ -66,7 +66,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = update.message.from_user
     print(f"CANCEL: User {user.first_name} canceled the conversation.")
     await update.message.reply_text(
-        "Current action has been cancelled", reply_markup=ReplyKeyboardRemove()
+        "Current action has been cancelled.\n\nYou can /choose another action, or start your message with 'Hey Komo' if you'd like to talk!", reply_markup=ReplyKeyboardRemove()
     )
 
     return ConversationHandler.END

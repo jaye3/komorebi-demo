@@ -32,24 +32,24 @@ async def get_from_api(data: dict, api_path: str) -> bool:
             response = await client.get(api_url, params=data, headers=headers)
             response.raise_for_status()
 
-            print(f"\tAPI GET: ✅ Successfully retrieved on attempt {attempt}")
+            print(f"          API GET: ✅ Successfully retrieved on attempt {attempt}")
             return response.json()
 
         except httpx.HTTPStatusError as exc:
-            print(f"\tAPI GET: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
+            print(f"          API GET: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
             if 400 <= exc.response.status_code < 500:
                 break  
 
         except httpx.RequestError as exc:
-            print(f"\tAPI GET: ❌ Network error on attempt {attempt}: {exc}")
+            print(f"          API GET: ❌ Network error on attempt {attempt}: {exc}")
 
         except Exception as exc:
-            print(f"\tAPI GET: ❌ Unexpected error on attempt {attempt}: {exc}")
+            print(f"          API GET: ❌ Unexpected error on attempt {attempt}: {exc}")
 
         # Exponential backoff for retries
         if attempt < MAX_RETRIES:
             wait_time = RETRY_BACKOFF ** attempt
-            print(f"\tAPI GET: Retrying in {wait_time} seconds...")
+            print(f"          API GET: Retrying in {wait_time} seconds...")
             await asyncio.sleep(wait_time)
     return None
 
@@ -66,24 +66,24 @@ async def create_to_api(data: dict, api_path: str) -> bool:
             response.raise_for_status()
 
             # print(f"✅ Successfully created on attempt {attempt}: {response.json()}")
-            print(f"\tAPI CREATE: ✅ Successfully created on attempt {attempt}")
+            print(f"        API CREATE: ✅ Successfully created on attempt {attempt}")
             return True
 
         except httpx.HTTPStatusError as exc:
-            print(f"\tAPI CREATE: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
+            print(f"        API CREATE: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
             if 400 <= exc.response.status_code < 500:
                 break  
 
         except httpx.RequestError as exc:
-            print(f"\tAPI CREATE: ❌ Network error on attempt {attempt}: {exc}")
+            print(f"        API CREATE: ❌ Network error on attempt {attempt}: {exc}")
 
         except Exception as exc:
-            print(f"\tAPI CREATE: ❌ Unexpected error on attempt {attempt}: {exc}")
+            print(f"        API CREATE: ❌ Unexpected error on attempt {attempt}: {exc}")
 
         # Exponential backoff for retries
         if attempt < MAX_RETRIES:
             wait_time = RETRY_BACKOFF ** attempt
-            print(f"\tAPI CREATE: Retrying in {wait_time} seconds...")
+            print(f"        API CREATE: Retrying in {wait_time} seconds...")
             await asyncio.sleep(wait_time)
 
 async def update_to_api(data: dict, api_path: str) -> bool:
@@ -95,24 +95,24 @@ async def update_to_api(data: dict, api_path: str) -> bool:
             response = await client.put(api_url, json=data)
             response.raise_for_status()
 
-            print(f"\tAPI UPDATE: ✅ Successfully updated on attempt {attempt}")
+            print(f"        API UPDATE: ✅ Successfully updated on attempt {attempt}")
             return True
 
         except httpx.HTTPStatusError as exc:
-            print(f"\tAPI UPDATE: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
+            print(f"        API UPDATE: ❌ HTTP {exc.response.status_code} on attempt {attempt}: {exc.response.text}")
             if 400 <= exc.response.status_code < 500:
                 break  # Do not retry on client-side errors
 
         except httpx.RequestError as exc:
-            print(f"\tAPI UPDATE: ❌ Network error on attempt {attempt}: {exc}")
+            print(f"        API UPDATE: ❌ Network error on attempt {attempt}: {exc}")
 
         except Exception as exc:
-            print(f"\tAPI UPDATE: ❌ Unexpected error on attempt {attempt}: {exc}")
+            print(f"        API UPDATE: ❌ Unexpected error on attempt {attempt}: {exc}")
 
         # Exponential backoff for retries
         if attempt < MAX_RETRIES:
             wait_time = RETRY_BACKOFF ** attempt
-            print(f"\tAPI UPDATE: Retrying in {wait_time} seconds...")
+            print(f"        API UPDATE: Retrying in {wait_time} seconds...")
             await asyncio.sleep(wait_time)
         
 ####################

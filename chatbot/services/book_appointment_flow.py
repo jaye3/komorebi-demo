@@ -54,7 +54,7 @@ async def booking_options_handler(update: Update, context: ContextTypes.DEFAULT_
     action = query.data
 
     if action == "start":
-        print(f"BOOKING: started booking flow for user {update.message.from_user.first_name}")
+        print(f"BOOKING: started booking flow for user {query.message.from_user.first_name}")
         context.user_data["page"] = 0
         await show_option(AVAILABLE_SLOTS, update, context)
     
