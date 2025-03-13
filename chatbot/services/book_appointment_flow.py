@@ -18,6 +18,7 @@ async def booking_start_handler(update: Update, context: ContextTypes.DEFAULT_TY
     '''Start the booking appointment flow and pull from appointment table'''
     global AVAILABLE_SLOTS
     print(f"BOOKING: in booking start for user {update.message.from_user.first_name}")
+    context.user_data["in_active_flow"] = True
 
     user_tele = update.message.from_user.username
     user_info = await get_from_api(

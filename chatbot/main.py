@@ -63,6 +63,10 @@ async def choose_action(update: Update, type: ContextTypes.DEFAULT_TYPE):
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Cancels and ends the conversation."""
 
+    if context.user_data.get("in_active_flow", False):
+        context.user_data["in_active_flow"] = False
+        return
+
     user = update.message.from_user
     print(f"CANCEL: User {user.first_name} canceled the conversation.")
     await update.message.reply_text(

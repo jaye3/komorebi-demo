@@ -11,6 +11,7 @@ from telegram.ext import (
 async def registration_start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the conversation, display any stored data and ask user for input."""
     print(f"REGISTRATION: in reg start for user {update.message.from_user.first_name}")
+    context.user_data["in_active_flow"] = True
 
     reply_text = '''
     Let's get started! \nWould you like to use your Singpass (for SG Citizens), or register manually?
