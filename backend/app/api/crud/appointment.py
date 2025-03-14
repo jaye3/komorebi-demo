@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session, joinedload
-from app import models
-from app.schemas.appointment import AppointmentBase
+from backend.app import models
+from backend.app.schemas.appointment import AppointmentBase
 from datetime import datetime
 
 # 1️⃣ Create Appointment

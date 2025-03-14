@@ -1,14 +1,14 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
-from app.schemas.patient_survey import PatientSurveyResponseBase
-from app.api.crud.patient_survey import (
+from backend.app.schemas.patient_survey import PatientSurveyResponseBase
+from backend.app.api.crud.patient_survey import (
     create_patient_survey,
     get_all_surveys,
     get_survey_by_id,
     get_surveys_by_patient,
     delete_survey
 )
-from app.database import SessionLocal
+from backend.app.database import SessionLocal
 
 router = APIRouter()
 

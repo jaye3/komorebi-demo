@@ -17,7 +17,8 @@ AVAILABLE_SLOTS = []
 async def booking_start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     '''Start the booking appointment flow and pull from appointment table'''
     global AVAILABLE_SLOTS
-    print("in booking start")
+    print(f"BOOKING: in booking start for user {update.message.from_user.first_name}")
+    context.user_data["in_active_flow"] = True
 
     user_tele = update.message.from_user.username
     user_info = await get_from_api(
@@ -25,7 +26,7 @@ async def booking_start_handler(update: Update, context: ContextTypes.DEFAULT_TY
         )
     if user_info:
         context.user_data["patient_id"] = user_info["id"]
-        print("got patient id")
+        print("BOOKING: successfully retrieved current chat's patient id")
     else:
         await update.message.reply_text(
                 "<i>(Your account has not yet been registered with us! For the best experience, please register your details first. \n\nYou can do this by typing 'Register')</i>",
@@ -54,7 +55,7 @@ async def booking_options_handler(update: Update, context: ContextTypes.DEFAULT_
     action = query.data
 
     if action == "start":
-        print("started booking")
+        print(f"BOOKING: started booking flow for user {query.message.from_user.first_name}")
         context.user_data["page"] = 0
         await show_option(AVAILABLE_SLOTS, update, context)
     
@@ -118,7 +119,7 @@ async def booking_confirm_handler(update: Update, context: ContextTypes.DEFAULT_
                                            parse_mode=ParseMode.HTML)
             return ConversationHandler.END
     except:
-        print("Error in creating booking")
+        print("BOOKING: Error in creating booking")
     
     # If error returned when updating booking
     await query.message.reply_text("Hmm... something went wrong when trying to book your appointment. Please click to retry:",

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app import models
-from app.schemas.doctor import DoctorBase
+from backend.app import models
+from backend.app.schemas.doctor import DoctorBase
 
 
 def create_doctor(db: Session, doctor: DoctorBase):
