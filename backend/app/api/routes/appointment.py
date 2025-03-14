@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.schemas.appointment import AppointmentBase, AppointmentDetailsResponse, AppointmentBooking
-from app.api.crud.appointment import (
+from backend.app.schemas.appointment import AppointmentBase, AppointmentDetailsResponse, AppointmentBooking
+from backend.app.api.crud.appointment import (
     create_appointment, get_all_appointments, get_appointment_by_id,
     get_appointments_by_patient_id, get_appointments_by_doctor_id, update_appointment_status,
     get_available_appointments, book_appointment_status
 )
-from app.database import SessionLocal
+from backend.app.database import SessionLocal
 
 router = APIRouter()
 

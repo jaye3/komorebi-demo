@@ -1,0 +1,68 @@
+The skin consists of three primary layers: the epidermis, dermis, and subcutaneous tissue.
+The epidermis serves as the protective outer barrier and is composed mainly of keratinocytes.
+Melanocytes in the basal layer of the epidermis produce melanin, which gives skin its color and protects against UV radiation.
+The dermis contains connective tissue, blood vessels, nerves, hair follicles, and sweat glands.
+Collagen and elastin fibers in the dermis provide structural support and elasticity to the skin.
+The subcutaneous tissue, or hypodermis, contains fat and connective tissue that insulates and cushions the body.
+Skin acts as a barrier to protect the body from pathogens, chemicals, and physical injury.
+The skin helps regulate body temperature through sweat production and blood flow regulation.
+Sebaceous glands secrete sebum, an oily substance that helps lubricate and protect the skin.
+Common dermatological conditions include acne, eczema, psoriasis, dermatitis, and skin infections.
+Acne vulgaris is a chronic inflammatory condition of the pilosebaceous unit, commonly seen in adolescents.
+Eczema, also known as atopic dermatitis, is a chronic inflammatory skin condition characterized by dry, itchy, and inflamed skin.
+Psoriasis is a chronic autoimmune condition resulting in the rapid buildup of skin cells, leading to scaling and inflammation.
+Contact dermatitis occurs when the skin comes into contact with an irritant or allergen, causing redness, itching, and rash.
+Basal cell carcinoma is the most common type of skin cancer and typically presents as a pearly or waxy bump on sun-exposed areas.
+Squamous cell carcinoma arises from the squamous cells of the epidermis and often presents as a scaly, red patch or ulcer.
+Malignant melanoma is an aggressive form of skin cancer arising from melanocytes and is characterized by asymmetrical, irregularly bordered, multicolored lesions.
+The ABCDE rule is used to evaluate moles for melanoma: Asymmetry, Border irregularity, Color variation, Diameter over 6 mm, and Evolving.
+Ultraviolet (UV) radiation from the sun is a major risk factor for skin cancer and photoaging.
+Sunscreen with broad-spectrum protection and SPF 30 or higher is recommended for daily use to prevent UV damage.
+Skin biopsies are commonly performed to diagnose skin lesions and rashes.
+Topical corticosteroids are frequently used to treat inflammatory skin conditions such as eczema and psoriasis.
+Systemic treatments for severe dermatologic conditions include immunosuppressants, biologics, and retinoids.
+Fungal skin infections include tinea corporis (ringworm), tinea pedis (athlete's foot), and tinea versicolor.
+Bacterial skin infections include impetigo, cellulitis, and erysipelas.
+Viral skin infections include herpes simplex, varicella-zoster (chickenpox and shingles), and molluscum contagiosum.
+Warts are caused by the human papillomavirus (HPV) and commonly occur on hands and feet.
+Alopecia is the medical term for hair loss and can be caused by autoimmune disease, genetics, or medications.
+Vitiligo is an autoimmune condition resulting in the loss of melanocytes, causing depigmented patches on the skin.
+Rosacea is a chronic skin condition characterized by facial redness, flushing, and visible blood vessels.
+Hyperpigmentation occurs when excess melanin is produced, often due to inflammation, sun exposure, or hormonal changes.
+Hypopigmentation is the loss of skin pigment and may result from injury, infection, or autoimmune conditions.
+Skin aging is influenced by intrinsic factors (genetics) and extrinsic factors (UV exposure, smoking).
+Proper skin hygiene includes gentle cleansing, moisturizing, and sun protection.
+Dermatologists perform procedures such as cryotherapy, laser therapy, and excisions to treat various skin conditions.
+Patch testing is used to identify allergens responsible for contact dermatitis.
+Dermatoscopy is a non-invasive technique used to examine pigmented skin lesions more closely.
+Chronic wounds, such as diabetic ulcers and pressure sores, require specialized wound care management.
+Scabies is a contagious skin infestation caused by the Sarcoptes scabiei mite and presents with intense itching and burrows.
+Lichen planus is an inflammatory condition affecting the skin, mucous membranes, hair, and nails, often presenting as purplish, itchy, flat-topped bumps.
+Systemic lupus erythematosus can cause a characteristic butterfly-shaped rash on the face and other cutaneous manifestations.
+Epidermolysis bullosa is a group of genetic disorders characterized by fragile skin that blisters easily in response to minor injury.
+Acne is a common skin condition that causes pimples, usually on the face, chest, and back. It can be treated with creams like benzoyl peroxide or medications like antibiotics.
+Psoriasis causes thick, scaly patches on the skin and can be managed with creams to reduce inflammation or special medicines that calm the immune system.
+Eczema (atopic dermatitis) makes the skin dry, itchy, and red. Moisturizers and steroid creams are commonly used to relieve symptoms.
+Skin cancer called basal cell carcinoma often appears as a shiny bump or sore that doesn't heal. It is usually removed with minor surgery.
+Melanoma is a serious skin cancer that often looks like a new or changing mole. Early removal with surgery gives the best chance of cure.
+Ringworm is a fungal infection that causes a red, ring-shaped rash. It is treated with antifungal creams.
+Rosacea causes redness and visible blood vessels on the face, sometimes with bumps. Treatment includes special creams or antibiotics.
+Dandruff or seborrheic dermatitis causes flaky, itchy skin on the scalp and face. It can be treated with medicated shampoos.
+Vitiligo causes white patches on the skin when pigment cells are lost. Treatment may include creams or light therapy to help even out skin color.
+Contact dermatitis happens when the skin reacts to something it touches, like soap or metal, causing redness and itching. It gets better by avoiding the trigger and using soothing creams.
+Hidradenitis suppurativa causes painful lumps and boils, usually under the arms or around the groin. Treatment includes antibiotics and sometimes surgery.
+Actinic keratosis is a rough, scaly spot caused by too much sun exposure. It can be frozen off or treated with creams to prevent skin cancer.
+Lichen planus causes itchy, purple bumps on the skin or in the mouth. It is treated with anti-inflammatory creams.
+Alopecia areata is a condition where the immune system attacks hair follicles, causing bald patches. Treatment can include steroid injections to help the hair grow back.
+Warts are caused by a virus and can be treated by freezing, applying special medicines, or minor surgery.
+Cold sores are blisters caused by a virus and often appear on the lips. They can be treated with antiviral creams or pills.
+Shingles causes a painful rash, often on one side of the body, and is treated with antiviral medication if caught early.
+Hives are itchy welts that can appear suddenly and are often triggered by allergies. Antihistamine pills can help reduce the itching.
+Scabies is an infestation of tiny mites that burrow into the skin, causing intense itching. It is treated with special creams that kill the mites.
+Moles should be checked if they change in size, shape, or color, as they might be a sign of skin cancer.
+Sunburn causes red, painful skin and can be prevented with sunscreen. Severe sunburn may need soothing lotions or medical care.
+Ingrown hairs happen when hair grows back into the skin, causing bumps. Exfoliating the skin and using proper shaving techniques can help.
+Fungal nail infections cause thick, discolored nails and are treated with antifungal creams or pills.
+Skin tags are harmless growths that can be removed if they bother you.
+Stretch marks are lines on the skin from rapid growth or weight changes. Creams can help, but they often fade over time on their own.
+Keratosis pilaris causes tiny bumps on the arms or thighs and can be improved with moisturizing creams and gentle exfoliation.

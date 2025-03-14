@@ -1,7 +1,8 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class PatientBase(BaseModel):
-    id: int
+    id: Optional[int] = None
     full_name: str
     mobile_no: str
     other_remarks: str
