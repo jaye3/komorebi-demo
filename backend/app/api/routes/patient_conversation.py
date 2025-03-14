@@ -39,7 +39,8 @@ def read_conversation(msg_id: int, db: Session = Depends(get_db)):
     return conversation
 
 @router.get("/patient/{patient_id}")
-def read_conversations_by_patient(patient_id: int, db: Session = Depends(get_db)):
+def read_conversations_by_patient(patient_id: str, db: Session = Depends(get_db)):
+    patient_id = int(patient_id)
     return get_conversations_by_patient(db, patient_id)
 
 @router.delete("/{msg_id}")

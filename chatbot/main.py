@@ -144,7 +144,7 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             print("FREE CHAT: getting response...")
             # Continue free chat
-            response = gemini_response(user_text)
+            response = await gemini_response(user_text, user_info["id"])
             await update.message.reply_text(response)
             return
     

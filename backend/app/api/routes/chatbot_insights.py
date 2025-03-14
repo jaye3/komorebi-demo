@@ -5,6 +5,7 @@ from backend.app.services.chatbot_insights_service import (
     get_patient_risk_alert,
     get_suggested_actions
 )
+from backend.app.services.iris_vector_search import retrieve_context
 from backend.app.database import SessionLocal
 
 router = APIRouter()
@@ -35,6 +36,13 @@ def get_risk_alert(patient_id: int, db: Session = Depends(get_db)):
 def get_suggestions(patient_id: int, db: Session = Depends(get_db)):
     try:
         return get_suggested_actions(patient_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+@router.get("/context/{query}", status_code=200)
+def get_query_context(query: str):
+    try:
+        return retrieve_context(query)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

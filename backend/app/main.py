@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import API routes
-from backend.app.api.routes import doctor, patient, appointment, patient_conversation,patient_survey
+from backend.app.api.routes import doctor, patient, appointment, patient_conversation,patient_survey, chatbot_insights
 
 
 app = FastAPI()
@@ -21,6 +21,7 @@ app.include_router(patient.router, prefix="/api/patients", tags=["Patients"])
 app.include_router(appointment.router, prefix="/api/appointments", tags=["Appointments"])
 app.include_router(patient_conversation.router, prefix="/api/conversations", tags=["Conversations"])
 app.include_router(patient_survey.router, prefix="/api/survey_responses", tags=["Survey Responses"])
+app.include_router(chatbot_insights.router, prefix="/api/insights", tags=["Insights"])
 
 @app.get("/")
 async def root():
