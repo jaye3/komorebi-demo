@@ -1,14 +1,14 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
-from app.schemas.patient_conversation import PatientConversationBase
-from app.api.crud.patient_conversation import (
+from backend.app.schemas.patient_conversation import PatientConversationBase
+from backend.app.api.crud.patient_conversation import (
     create_patient_conversation,
     get_all_conversations,
     get_conversation_by_id,
     get_conversations_by_patient,
     delete_conversation
 )
-from app.database import SessionLocal
+from backend.app.database import SessionLocal
 
 router = APIRouter()
 
@@ -39,7 +39,8 @@ def read_conversation(msg_id: int, db: Session = Depends(get_db)):
     return conversation
 
 @router.get("/patient/{patient_id}")
-def read_conversations_by_patient(patient_id: int, db: Session = Depends(get_db)):
+def read_conversations_by_patient(patient_id: str, db: Session = Depends(get_db)):
+    patient_id = int(patient_id)
     return get_conversations_by_patient(db, patient_id)
 
 @router.delete("/{msg_id}")

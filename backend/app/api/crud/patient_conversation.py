@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app import models
-from app.schemas.patient_conversation import PatientConversationBase
+from backend.app import models
+from backend.app.schemas.patient_conversation import PatientConversationBase
 from datetime import datetime
 
 def create_patient_conversation(db: Session, conversation: PatientConversationBase):

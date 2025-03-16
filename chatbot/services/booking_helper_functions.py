@@ -33,9 +33,9 @@ async def get_available_appointments_in_groups(group_size = 4):
 
 async def show_option(AVAILABLE_SLOTS, update: Update, context: ContextTypes.DEFAULT_TYPE):
     page = context.user_data.get("page", 0)
-    print("user current page", page)
+    print("BOOKING: user current page", page)
     total_pages = len(AVAILABLE_SLOTS)
-    print("total pages:", total_pages)
+    print("BOOKING: total pages:", total_pages)
 
     # Make sure page index stays within bounds
     page = max(0, min(page, total_pages - 1))

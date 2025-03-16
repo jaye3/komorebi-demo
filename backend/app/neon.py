@@ -3,15 +3,13 @@ import psycopg2
 # Optional: tell psycopg2 to cancel the query on Ctrl-C
 import psycopg2.extras; psycopg2.extensions.set_wait_callback(psycopg2.extras.wait_select)
 
-#can delete later
-# You can set the password to None if it is specified in a ~/.pgpass file
-USERNAME = "neondb_owner"
-PASSWORD = "npg_Ftx32aYzgWAD"
-HOST = "ep-divine-art-a9jdtdj7-pooler.gwc.azure.neon.tech"  # Removed @
-PORT = "5432"
-PROJECT = "komorebi"
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-conn_str = f"dbname={PROJECT} user={USERNAME} password={PASSWORD} host={HOST} port={PORT} sslmode=require"
+DATABASE_URL=os.getenv("URL_DATABASE") + "?sslmode=require"
+conn_str = psycopg2.connect(DATABASE_URL)
+# conn_str = f"dbname={os.getenv('PROJECT')} user={os.getenv('USERNAME')} password={os.getenv('PASSWORD')} host={os.getenv('HOST')} port={os.getenv('DB_PORT')} sslmode=require"
 
 import psycopg2
 conn = psycopg2.connect(conn_str)

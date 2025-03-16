@@ -28,3 +28,5 @@ GET_SURVEY_RESPONSE_BY_ID_URL="/survey_responses/" # concatenate survey id
 DELETE_SURVEY_RESPONSE_BY_ID_URL="/survey_responses/" # concatenate survey id
 GET_SURVEY_RESPONSES_BY_PATIENT_ID_URL="/survey_responses/patient/" # concatenate patient id
 
+GET_INSIGHTS_QUERY_CONTEXT_URL="/insights/context/" # concatenate query
+

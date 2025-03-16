@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app import models
-from app.schemas.patient_survey import PatientSurveyResponseBase
+from backend.app import models
+from backend.app.schemas.patient_survey import PatientSurveyResponseBase
 from datetime import datetime
 
 def create_patient_survey(db: Session, survey: PatientSurveyResponseBase):

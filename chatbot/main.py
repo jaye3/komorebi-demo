@@ -1,4 +1,4 @@
-import os, time
+import os
 from dotenv import load_dotenv
 from datetime import datetime
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
@@ -13,6 +13,7 @@ from telegram.ext import (
 )
 from telegram.constants import ParseMode
 from services.api_helper import create_to_api
+import time
 ##########
 load_dotenv()
 BOT_USERNAME="@Komorebi_KomoBot"
@@ -25,9 +26,10 @@ from utils.states import *
 
 # Start command handling
 async def start_command(update: Update, type: ContextTypes.DEFAULT_TYPE):
+    print(f"Komo started by user {update.message.from_user.first_name}")
     # to check and disable duplicate sending of /start
-    if type.user_data.get("start_komo", False):
-        return
+    # if type.user_data.get("start_komo", False):
+    #     return
     
     type.user_data["start_komo"] = True
     await update.message.reply_text(
@@ -59,19 +61,41 @@ async def choose_action(update: Update, type: ContextTypes.DEFAULT_TYPE):
 
 # Cancel action
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Cancels and ends the conversation."""
-
     user = update.message.from_user
-    print(f"User {user.first_name} canceled the conversation.")
-    await update.message.reply_text(
-        "Current action has been cancelled", reply_markup=ReplyKeyboardRemove()
-    )
+    print(f"CANCEL: User {user.first_name} requested cancel.")
 
+    if context.user_data.get("in_active_flow", False):
+        # Inside conversation
+        context.user_data["in_active_flow"] = False  # Or clear() if you want
+        print("CANCEL: Cancelling inside conversation.")
+        await update.message.reply_text(
+            "Your action has been cancelled. You can /choose another action or say 'Hey Komo' to chat!",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        return ConversationHandler.END
+
+    # Outside conversation
+    print("Cancel outside conversation.")
+    if context.user_data.get("in_active_flow", None) == False:
+        print("CANCEL: Removing in_active_flow...")
+        context.user_data.pop("in_active_flow", None)
+        return
+    
+    if context.user_data.get("free_chat", False):
+        print("FREE CHAT: Cancelling free chat")
+        context.user_data.pop("free_chat", None)
+
+    await update.message.reply_text(
+        "There's nothing to cancel. You can /choose another action or say 'Hey Komo' to chat!"
+    )
     return ConversationHandler.END
+
+
 #########################################################
 
 # Bot func
 async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_name = update.message.from_user.first_name
     # Retrieve patient's id
     user_tele = update.message.from_user["username"]
     user_info = await get_from_api(
@@ -79,11 +103,11 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     user_text: str = update.message.text.lower()
-    print(f"user sent {user_text}")
+    print(f"MAIN CHAT: User {user_name} sent {user_text}")
 
     # Check if user is starting a free chat
     if ("hey komo" in user_text) or ("hi komo" in user_text):
-        print("Free chat started....")
+        print(f"FREE CHAT: Free chat started for {user_name}....")
         context.user_data["free_chat"] = True
         await update.message.reply_text("<i>(You are now starting a free chat with Komo! \n\nFeel free to share about any worries you have. When you're ready to end the conversation, just say <b>'thanks komo'</b>!)</i>",
                                         parse_mode=ParseMode.HTML)
@@ -112,42 +136,36 @@ async def handle_free_chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         # Ending free chat
         if ("thanks komo" in user_text) or ("thank you komo" in user_text):
-            print("end free chat")
+            print(f"FREE CHAT: end free chat for {user_name}")
             context.user_data["free_chat"] = False
             await update.message.reply_text("Thanks for sharing with me, and take care as always :)")
             return
         
         else:
-            print("getting response...")
+            print("FREE CHAT: getting response...")
             # Continue free chat
-            response = gemini_response(user_text)
+            response = await gemini_response(user_text, user_info["id"])
             await update.message.reply_text(response)
             return
     
     await update.message.reply_text(
-        "Sorry, I didn't understand that... \nIf you'd like to chat with me about your feelings, just say \"Hey Komo\" \n\nOr if you need help with registration/appointment management, feel free to use the buttons below!"
+        "Sorry, I didn't understand that... \nIf you'd like to chat with me about how you're feeling, just say \"Hey Komo\" \n\nOr if you need help with registration/appointment management, feel free to use the buttons below!"
         )
 
 ############
 
 # Error handling
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print(f"Update {update} caused error {context.error}")
+    print(f"ERROR: Update {update} caused error {context.error}")
 
 #### Running 
 if __name__ == "__main__":
-    print("Starting bot....")
+    print("MAIN: Starting bot....")
 
-    TOKEN = os.environ["TELEGRAM_TOKEN"]
+    TOKEN = os.getenv("TELEGRAM_TOKEN")
     app = Application.builder().token(TOKEN).build()
 
     STATE_KEYWORDS = ["Register", "Book Appointment"]
-
-    # Setting Commands
-    app.add_handler(CommandHandler('start', start_command))
-    app.add_handler(CommandHandler('help', help_command))
-    app.add_handler(CommandHandler('choose', choose_action))
-    app.add_handler(CommandHandler('cancel', cancel))
 
     ####################
     # Registration Handling
@@ -189,15 +207,32 @@ if __name__ == "__main__":
 
     # Survey
 
+    # Debug catcher
+    async def debug_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if update.message:
+            print(f"[DEBUG] Message received: {update.message.text!r}")
+        elif update.callback_query:
+            print(f"[DEBUG] Callback query received: {update.callback_query.data!r}")
+
+    app.add_handler(MessageHandler(filters.ALL, debug_all_messages), group=99)
+    
+
     # Add Handlers 
+        # Registration handlers
     app.add_handler(reg_handler)
     app.add_handler(booking_handler)
+
+        # Setting commands
+    app.add_handler(CommandHandler('start', start_command))
+    app.add_handler(CommandHandler('help', help_command))
+    app.add_handler(CommandHandler('choose', choose_action))
+    app.add_handler(CommandHandler('cancel', cancel))
     # app.add_handler(manage_handler)
 
     ########
 
     state_handlers = "(" + "|".join(STATE_KEYWORDS) + ")"
-    print("state handlers", state_handlers)
+    print("MAIN: state handlers", state_handlers)
     # Other Message handling
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & ~filters.Regex(state_handlers), handle_free_chat))
 
@@ -205,7 +240,7 @@ if __name__ == "__main__":
     app.add_error_handler(error)
 
     # Ping for updates on msgs (checks every n seconds)
-    print("Polling bot...")
+    print("MAIN: Polling bot...")
     app.run_polling(poll_interval=3)
 
 
