@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react";
 import { useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
@@ -8,75 +9,101 @@ import { Calendar, Clock, FileText, Video, Phone, User } from "lucide-react"
 
 // Mock data - in a real app, this would come from your backend
 const appointmentsData = {
-  "P-1024": [
+  "P-1024": [ // Moon Knight's Patient ID
     {
       id: 1,
-      date: "2023-10-15",
-      time: "09:00 AM",
-      doctor: "Dr. Sarah Reynolds",
-      type: "Check-up",
+      date: "2024-03-10",
+      time: "09:30 AM",
+      doctor: "Dr. Lady Gaga",
+      type: "Initial Consultation",
       status: "Completed",
       method: "In-person",
       notes:
-        "Patient reported occasional shortness of breath. Blood pressure slightly elevated at 135/85 mmHg. Lung function tests showed mild airway obstruction consistent with asthma diagnosis.",
+        "Patient diagnosed with moderate-to-severe eczema, experiencing frequent flare-ups. Prescribed a topical corticosteroid and recommended a fragrance-free skincare routine. Advised to track flare-up triggers, including stress and diet.",
     },
     {
       id: 2,
-      date: "2023-09-01",
-      time: "10:30 AM",
-      doctor: "Dr. James Wilson",
+      date: "2024-04-15",
+      time: "02:00 PM",
+      doctor: "Dr. Lady Gaga",
       type: "Follow-up",
       status: "Completed",
       method: "Video",
       notes:
-        "Patient reported good control of asthma symptoms. Blood pressure within normal range at 128/82 mmHg. Continued current medication regimen.",
+        "Patient reported reduced itching but persistent dryness. Increased moisturizer application frequency recommended. Introduced non-steroidal cream for maintenance. Discussed impact of stress on flare-ups and suggested mindfulness techniques.",
     },
     {
       id: 3,
-      date: "2023-07-18",
-      time: "11:45 AM",
-      doctor: "Dr. Sarah Reynolds",
-      type: "Consultation",
+      date: "2024-06-05",
+      time: "11:00 AM",
+      doctor: "Dr. Lady Gaga",
+      type: "Treatment Adjustment",
       status: "Completed",
       method: "In-person",
       notes:
-        "Patient experienced increased frequency of asthma attacks. Adjusted medication dosage and recommended daily peak flow monitoring.",
+        "Eczema flare-ups worsening due to warmer weather. Switched to a stronger topical steroid for short-term use. Recommended using a humidifier at night and avoiding wool fabrics.",
     },
     {
       id: 4,
-      date: "2023-11-05",
-      time: "01:15 PM",
-      doctor: "Dr. Sarah Reynolds",
-      type: "Check-up",
-      status: "Scheduled",
+      date: "2024-08-12",
+      time: "10:30 AM",
+      doctor: "Dr. Lady Gaga",
+      type: "Allergy Testing",
+      status: "Completed",
       method: "In-person",
-      notes: "Follow-up appointment to reassess blood pressure control and asthma symptoms.",
+      notes:
+        "Testing for potential allergens (dust mites, pet dander, and specific skincare ingredients) to identify possible eczema triggers. Results showed sensitivity to dust mites and synthetic fragrances.",
+    },
+    {
+      id: 5,
+      date: "2025-01-05",
+      time: "01:00 PM",
+      doctor: "Dr. Ariana Grande",
+      type: "Final Review & Long-Term Plan",
+      status: "Completed",
+      method: "In-person",
+      notes:
+        "Final follow-up to assess eczema management progress. Reviewing effectiveness of current treatment plan and discussing long-term skin maintenance strategies. Considering phototherapy if flare-ups persist.",
+    },
+    {
+      id: 6,
+      date: "2025-03-15",
+      time: "09:00 AM",
+      doctor: "Dr. Lady Gaga",
+      type: "Routine Skin Check",
+      status: "Completed",
+      method: "In-person",
+      notes:
+        "Routine follow-up to monitor eczema condition. Evaluating whether maintenance treatments are effective or if adjustments are needed. Discussing any new symptoms or concerns.",
     },
   ],
   "P-1025": [
     {
       id: 1,
-      date: "2023-10-12",
-      time: "02:30 PM",
+      date: "2024-02-28",
+      time: "03:00 PM",
       doctor: "Dr. Michael Brown",
-      type: "Follow-up",
+      type: "Acne Treatment Consultation",
       status: "Completed",
       method: "In-person",
       notes:
-        "Reviewed blood glucose logs. A1C improved to 6.8%. Continued current medication regimen and dietary plan.",
+        "Patient presenting with persistent acne. Recommended a combination of benzoyl peroxide and retinoid treatment. Advised on dietary factors and non-comedogenic skincare.",
     },
     {
       id: 2,
-      date: "2023-11-10",
-      time: "03:45 PM",
+      date: "2024-05-10",
+      time: "01:15 PM",
       doctor: "Dr. Michael Brown",
-      type: "Check-up",
+      type: "Follow-up",
       status: "Scheduled",
       method: "Video",
-      notes: "Quarterly diabetes management review.",
+      notes:
+        "Assessing response to acne treatment. Evaluating potential need for oral medication if no significant improvement.",
     },
   ],
-}
+};
+
+
 
 export default function PatientAppointments({ patientId }) {
   const [expandedNotes, setExpandedNotes] = useState(null)
@@ -108,8 +135,8 @@ export default function PatientAppointments({ patientId }) {
             </TableHeader>
             <TableBody>
   {appointments.map((appointment) => (
-    <React.Fragment key={appointment.id}>
-      <TableRow key={appointment.id}>
+    <React.Fragment key={`appointment-${appointment.id}`}>
+      <TableRow key={`row-${appointment.id}`}>
         <TableCell>
           <div className="flex flex-col">
             <div className="flex items-center">
@@ -164,9 +191,9 @@ export default function PatientAppointments({ patientId }) {
         </TableCell>
       </TableRow>
 
-      {/* ✅ FIX: Add a key to this TableRow */}
+      {/* ✅ Ensure unique key for Notes Row */}
       {expandedNotes === appointment.id && (
-        <TableRow key={`${appointment.id}-notes`}>
+        <TableRow key={`notes-${appointment.id}`}>
           <TableCell colSpan={6} className="bg-gray-50 p-4">
             <div className="text-sm text-gray-700">
               <h4 className="font-medium mb-1">Notes:</h4>

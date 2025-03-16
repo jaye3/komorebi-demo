@@ -48,7 +48,7 @@ export default function DashboardHeader() {
               </div>
             </div>
             <div className="hidden md:block ml-4">
-              <div className="text-xl font-bold text-green-700">Komorebi</div>
+              <div className="text-xl font-bold text-green-700">Komorebi+</div>
             </div>
             <div className="hidden md:block ml-10">
               
@@ -62,23 +62,23 @@ export default function DashboardHeader() {
             </Button>
 
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                    <AvatarFallback className="bg-green-100 text-green-700">DR</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Dr. Sarah Reynolds</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="ghost" size="icon" className="relative flex items-center justify-center h-8 w-8 p-0">
+      <Avatar className="h-8 w-8">
+        <AvatarFallback className="bg-green-100 text-green-700">DG</AvatarFallback>
+      </Avatar>
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end" className="z-50">
+    <DropdownMenuLabel>Dr. Lady Gaga</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
           </div>
 
           <div className="md:hidden">
@@ -101,8 +101,8 @@ export default function DashboardHeader() {
                 </Avatar>
               </div>
               <div className="ml-3">
-                <div className="text-base font-medium text-gray-800">Dr. Sarah Reynolds</div>
-                <div className="text-sm font-medium text-gray-500">s.reynolds@komorebi.health</div>
+                <div className="text-base font-medium text-gray-800">Dr. Lady Gaga</div>
+                <div className="text-sm font-medium text-gray-500">drladygaga@dermacare.com</div>
               </div>
               <Button variant="ghost" size="icon" className="ml-auto">
                 <Bell className="h-5 w-5 text-gray-600" />

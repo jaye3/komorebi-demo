@@ -15,20 +15,20 @@ function getPatient(id) {
   const patients = {
     "P-1024": {
       id: "P-1024",
-      name: "Emma Wilson",
+      name: "Moon Knight",
       age: 34,
       gender: "Female",
-      contact: "+1 (555) 123-4567",
-      email: "emma.wilson@example.com",
-      address: "123 Main St, Anytown, CA 94321",
+      contact: "+65 98543788",
+      email: "moonknight@gmail.com",
+      address: "Ang Mo Kio Avenue 5, Singapore 525534",
       bloodType: "O+",
-      allergies: ["Penicillin", "Peanuts"],
-      conditions: ["Hypertension", "Asthma"],
-      lastVisit: "2023-10-15",
-      nextAppointment: "2023-11-05",
+      allergies: ["Seafood"],
+      conditions: ["Eczema"],
+      lastVisit: "2025-01-05",
+      nextAppointment: "2025-03-15; 9:00 AM",
       status: "Active",
-      avatar: "/placeholder.svg?height=120&width=120",
-      initials: "EW",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80",
+      initials: "MK",
     },
     "P-1025": {
       id: "P-1025",
@@ -42,7 +42,7 @@ function getPatient(id) {
       allergies: ["Sulfa drugs"],
       conditions: ["Diabetes", "High cholesterol"],
       lastVisit: "2023-10-12",
-      nextAppointment: "2023-11-10",
+      nextAppointment: "2025-01-05;10.30 AM",
       status: "Active",
       avatar: "/placeholder.svg?height=120&width=120",
       initials: "JR",
@@ -104,39 +104,32 @@ export default function PatientPage({ params }) {
                   <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
                     <div className="prose max-w-none">
                       <p className="text-gray-700">
-                        <strong>Patient Overview:</strong> Emma Wilson is a 34-year-old female with a history of
-                        hypertension and asthma. She has been a patient at Komorebi Health since 2020 and maintains
-                        regular follow-up appointments.
+                        <strong>Patient Overview:</strong> Moon Knight is a 34-year-old female with a history of
+                        eczema. She has been a patient at Derma Care since 2022 and attends regular appointments for skin management.
                       </p>
 
                       <p className="text-gray-700 mt-4">
-                        <strong>Recent Medical History:</strong> During her last visit on October 15, 2023, Emma
-                        reported occasional shortness of breath, particularly during physical activity. Her blood
-                        pressure was slightly elevated at 135/85 mmHg. Lung function tests showed mild airway
-                        obstruction consistent with her asthma diagnosis.
+                        <strong>Recent Medical History:</strong>: During her last visit on January 5, 2025, Moon reported a flare-up of itchy, red patches on her elbows and knees, consistent with eczema, worsesned by dry weather. 
+                        Skin examination revealed moderate eczematous lesions with some scaling.
                       </p>
 
                       <p className="text-gray-700 mt-4">
                         <strong>Current Medications:</strong>
                       </p>
                       <ul className="list-disc pl-5 text-gray-700">
-                        <li>Lisinopril 10mg daily for hypertension</li>
-                        <li>Albuterol inhaler as needed for asthma symptoms</li>
-                        <li>Fluticasone inhaler twice daily for asthma maintenance</li>
+                        <li>Hydrocortisone 1% cream twice daily for eczema flare-ups</li>
+                        <li>Moisturizing emollient (e.g., CeraVe) applied daily for skin barrier support</li>
                       </ul>
 
                       <p className="text-gray-700 mt-4">
-                        <strong>Treatment Plan:</strong> Continue current medication regimen. Recommended increased
-                        physical activity with proper warm-up to improve cardiovascular health and asthma management.
-                        Scheduled follow-up appointment for November 5, 2023, to reassess blood pressure control and
-                        asthma symptoms.
+                        <strong>Treatment Plan:</strong>Continue current medications. Advised to apply emollient generously after showers to lock in moisture and reduce eczema triggers. 
+                        Recommended avoiding known irritants (e.g., wool clothing). Follow-up scheduled for March 15, 2025, to monitor skin improvement.
                       </p>
 
                       <p className="text-gray-700 mt-4">
-                        <strong>Notes from WhatsApp Check-ins:</strong> Patient has been consistently logging her blood
-                        pressure readings through the WhatsApp bot. Readings have shown improvement over the past month,
-                        with an average of 128/82 mmHg. She reports using her rescue inhaler approximately 2-3 times per
-                        week, which is consistent with previous patterns.
+                        <strong>Notes from Telegram Check-ins:</strong>Moon has been using the telegram bot to report eczema severity.
+                         Over the past month, she noted fewer flare-ups after increasing emollient use, with itchiness reduced by 50%. 
+                         She reports applying hydrocortisone cream only 2-3 times per week during this period.
                       </p>
                     </div>
                   </Suspense>

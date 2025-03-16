@@ -5,16 +5,25 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, Phone, Mail, MapPin, Clock, AlertCircle } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+
 
 export default function PatientDetails({ patient }) {
   return (
     <Card className="overflow-hidden">
       <div className="bg-gradient-to-r from-green-50 to-green-100 p-6">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-          <Avatar className="h-24 w-24 border-4 border-white">
+          {/* <Avatar className="h-24 w-24 border-4 border-white">
             <AvatarImage src={patient.avatar} alt={patient.name} />
             <AvatarFallback className="bg-green-100 text-green-700 text-2xl">{patient.initials}</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
+          <Avatar className="h-24 w-24 border-4 border-white">
+  <AvatarImage src={patient.avatar} name={patient.name} alt={patient.name} />
+  <AvatarFallback className="bg-green-100 text-green-700 text-2xl">
+    {patient.initials}
+  </AvatarFallback>
+</Avatar>
 
           <div className="flex-1">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -105,13 +114,33 @@ export default function PatientDetails({ patient }) {
             </ul>
 
             <div className="mt-4 flex space-x-2">
-              <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
-                Schedule
-              </Button>
-              <Button size="sm" variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
-                Message
-              </Button>
-            </div>
+  <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+    Schedule
+  </Button>
+  <Button size="sm" variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
+    Message
+  </Button>
+
+ {/* Take Notes Button */}
+<Dialog>
+  <DialogTrigger asChild>
+    <Button size="sm" className="bg-blue-100 text-blue-700 hover:bg-blue-200">
+      Take Notes
+    </Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Appointment Notes</DialogTitle>
+    </DialogHeader>
+    <Textarea placeholder="Enter your notes here..." className="h-32" />
+    <div className="flex justify-end mt-4 space-x-2">
+      <Button variant="outline">Cancel</Button>
+      <Button className="bg-green-600 hover:bg-green-700 text-white">Save Notes</Button>
+    </div>
+  </DialogContent>
+</Dialog>
+
+</div>
           </div>
         </div>
       </CardContent>

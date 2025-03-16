@@ -33,7 +33,7 @@ export default function FloatingBubbles() {
       "rgba(240, 230, 140, 0.3)", // khaki
     ]
 
-    // Create bubbles
+  
     for (let i = 0; i < bubbleCount; i++) {
       bubbles.push({
         x: Math.random() * canvas.width,

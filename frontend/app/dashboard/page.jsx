@@ -23,7 +23,7 @@ export default function DashboardPage() {
                 <CardTitle className="text-sm font-medium text-gray-500">Total Patients</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold text-green-700">1,248</p>
+                <p className="text-3xl font-bold text-green-700">748</p>
                 <p className="text-xs text-green-600 mt-1">+12% from last month</p>
               </CardContent>
             </Card>
@@ -32,8 +32,8 @@ export default function DashboardPage() {
                 <CardTitle className="text-sm font-medium text-gray-500">Today's Appointments</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold text-green-700">24</p>
-                <p className="text-xs text-green-600 mt-1">4 remaining</p>
+                <p className="text-3xl font-bold text-green-700">5</p>
+                <p className="text-xs text-green-600 mt-1">2 remaining</p>
               </CardContent>
             </Card>
             <Card>
@@ -41,8 +41,8 @@ export default function DashboardPage() {
                 <CardTitle className="text-sm font-medium text-gray-500">Available Doctors</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold text-green-700">8</p>
-                <p className="text-xs text-green-600 mt-1">of 12 total</p>
+                <p className="text-3xl font-bold text-green-700">3</p>
+                <p className="text-xs text-green-600 mt-1">of 8 total</p>
               </CardContent>
             </Card>
           </div>

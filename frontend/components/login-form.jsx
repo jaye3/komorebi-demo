@@ -59,7 +59,7 @@ export default function LoginForm() {
               </svg>
             </div>
           </div>
-          <CardTitle className="text-2xl text-center font-bold text-green-700">Komorebi</CardTitle>
+          <CardTitle className="text-2xl text-center font-bold text-green-700">Komorebi+</CardTitle>
           <CardDescription className="text-center">Patient Management System</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -95,16 +95,21 @@ export default function LoginForm() {
                   className="border-green-200 focus-visible:ring-green-500"
                 />
               </div>
-              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white" disabled={isLoading}>
+              <Button 
+               type="submit" 
+               className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white" 
+               disabled={isLoading}
+               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Please wait
-                  </>
-                ) : (
-                  "Sign In"
-                )}
-              </Button>
+               <Loader2 className="h-4 w-4 animate-spin" />
+               <span className="text-center">Please wait</span>
+               </>
+               ) : (
+                 "Sign In"
+                  )}
+               </Button>
+
             </div>
           </form>
         </CardContent>

@@ -10,89 +10,55 @@ import { AlertTriangle, ThumbsUp, MessageSquare } from "lucide-react"
 // Mock data - in a real app, this would come from your backend
 const sentimentData = {
   "P-1024": {
-    overallSentiment: "Positive",
-    score: 78,
-    recentTrend: "Improving",
-    keyInsights: [
-      {
-        type: "positive",
-        text: "Patient expresses satisfaction with current treatment plan",
-      },
-      {
-        type: "positive",
-        text: "Regularly engages with WhatsApp check-ins",
-      },
-      {
-        type: "neutral",
-        text: "Occasionally mentions mild anxiety about asthma symptoms",
-      },
-      {
-        type: "concern",
-        text: "Expressed frustration about medication side effects",
-      },
-    ],
-    recentMessages: [
-      {
-        date: "2023-10-18",
-        message: "I've been feeling much better since my last appointment. The new inhaler is working well.",
-        sentiment: "Positive",
-      },
-      {
-        date: "2023-10-12",
-        message: "My blood pressure reading today was 130/82. Is that okay?",
-        sentiment: "Neutral",
-      },
-      {
-        date: "2023-10-05",
-        message:
-          "I'm a bit worried about the side effects of the new medication. I've been feeling tired in the afternoons.",
-        sentiment: "Concern",
-      },
-    ],
-    recommendations: [
-      "Acknowledge patient's positive progress with asthma management",
-      "Address medication side effects at next appointment",
-      "Continue to encourage regular WhatsApp check-ins",
-      "Consider scheduling a follow-up sooner if side effects persist",
-    ],
-  },
-  "P-1025": {
     overallSentiment: "Neutral",
-    score: 62,
+    score: 65,
     recentTrend: "Stable",
     keyInsights: [
       {
         type: "positive",
-        text: "Consistently reports following dietary recommendations",
+        text: "Patient consistently applies prescribed moisturizer",
       },
       {
         type: "neutral",
-        text: "Moderate engagement with WhatsApp check-ins",
+        text: "Reports mixed results with steroid cream effectiveness",
       },
       {
         type: "concern",
-        text: "Expresses difficulty maintaining exercise routine",
+        text: "Experiences frequent eczema flare-ups during weather changes",
+      },
+      {
+        type: "concern",
+        text: "Mentions discomfort from skin itching and dryness at night",
       },
     ],
     recentMessages: [
       {
-        date: "2023-10-14",
-        message: "My blood sugar readings have been stable this week.",
+        date: "2025-03-09",
+        message: "My skin feels less dry during the day, but at night, the itching gets worse. It’s affecting my sleep.",
+        sentiment: "Concern",
+      },
+      {
+        date: "2025-03-06",
+        message: "I’ve been using the steroid cream, and while it helps initially, the redness comes back after a few days.",
         sentiment: "Neutral",
       },
       {
-        date: "2023-10-07",
-        message: "I've been following the diet plan, but finding it hard to exercise regularly with my work schedule.",
+        date: "2025-03-01",
+        message: "The cold weather seems to be making my eczema worse. My hands are especially dry and cracked.",
         sentiment: "Concern",
       },
     ],
     recommendations: [
-      "Discuss flexible exercise options that fit patient's schedule",
-      "Reinforce importance of regular glucose monitoring",
-      "Provide positive reinforcement for dietary compliance",
+      "Discuss options for nighttime itch relief and possible antihistamines",
+      "Evaluate effectiveness of steroid cream and consider alternatives if needed",
+      "Provide guidance on managing eczema in cold weather",
+      "Recommend gentle, fragrance-free moisturizers for long-term skin barrier support",
     ],
   },
-}
+
+};
+
+
 
 export default function PatientSentimentAnalysis({ patientId }) {
   const sentimentGaugeRef = useRef(null)
@@ -215,14 +181,14 @@ export default function PatientSentimentAnalysis({ patientId }) {
 
       <TabsContent value="overview">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          {/* <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-medium text-gray-700 mb-4">Sentiment Score</h3>
               <div className="w-full">
                 <canvas ref={sentimentGaugeRef}></canvas>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Card>
             <CardContent className="p-6">
@@ -258,7 +224,7 @@ export default function PatientSentimentAnalysis({ patientId }) {
       <TabsContent value="messages">
         <Card>
           <CardContent className="p-6">
-            <h3 className="text-lg font-medium text-gray-700 mb-4">Recent WhatsApp Messages</h3>
+            <h3 className="text-lg font-medium text-gray-700 mb-4">Recent KomoBOT Messages</h3>
             <div className="space-y-4">
               {data.recentMessages.map((message, index) => (
                 <div key={index} className="border rounded-lg p-4">
@@ -294,7 +260,7 @@ export default function PatientSentimentAnalysis({ patientId }) {
             <h3 className="text-lg font-medium text-gray-700 mb-4">Suggested Approach</h3>
             <div className="prose max-w-none">
               <p className="text-gray-700 mb-4">
-                Based on sentiment analysis from WhatsApp check-ins and appointment feedback, consider the following
+                Based on sentiment analysis from KomoBOT Telegram check-ins and appointment feedback, consider the following
                 recommendations for optimizing patient experience:
               </p>
 

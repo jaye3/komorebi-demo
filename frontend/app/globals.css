@@ -92,3 +92,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+.select-item {
+  padding-left: 2rem !important; /* Moves text away from tick mark */
+}
+
