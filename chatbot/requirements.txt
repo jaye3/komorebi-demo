@@ -1,12 +1,6 @@
-fastapi==0.115.11
 httpx==0.28.1
-psycopg2_binary==2.9.10
-pydantic==2.10.6
-# python==3.10.0
 python-dotenv==1.0.1
 python-telegram-bot==21.11.1
-SQLAlchemy==2.0.38
-uvicorn==0.34.0
 google-ai-generativelanguage==0.6.15
 google-api-core==2.24.1
 google-api-python-client==2.163.0
