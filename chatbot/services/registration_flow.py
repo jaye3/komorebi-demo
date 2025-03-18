@@ -8,8 +8,23 @@ from telegram.ext import (
     ConversationHandler,
 )
 
+async def is_user_registered(update):
+    user_tele = update.message.from_user["username"]
+    user_info = await get_from_api(
+        {}, GET_PATIENT_FIND_BY_TELEGRAM_URL + user_tele
+        )
+    if user_info.get("id", False):
+        return True
+    
+    return False
+
 async def registration_start_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the conversation, display any stored data and ask user for input."""
+    # If user is already registered, end the flow.
+    if is_user_registered(update):
+        await update.message.reply_text("Seems like you're already registered with us! \nIf you'd like to edit your existing details, please click here [not developed yet]\n\nOtherwise, you can /choose another action or say 'Hey Komo' to chat with me!")
+        return ConversationHandler.END
+
     print(f"REGISTRATION: in reg start for user {update.message.from_user.first_name}")
     context.user_data["in_active_flow"] = True
 
