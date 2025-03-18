@@ -12,7 +12,7 @@ def format_context(docs: Document):
     return [doc.page_content for doc in docs]
 
 def retrieve_context(query: str):
-
+    
     embedder = GeminiEmbeddings(API_KEY)
 
     CONNECTION_STRING = f'iris://{os.getenv("IRIS_USERNAME")}:{os.getenv("IRIS_PASSWORD")}@{os.getenv("IRIS_HOSTNAME")}:{os.getenv("IRIS_PORT")}/{os.getenv("IRIS_NAMESPACE")}'
@@ -26,16 +26,13 @@ def retrieve_context(query: str):
         connection_string=CONNECTION_STRING,
     )
 
-    # This to add docs
-    # db.add_documents(docs)
-
     query_docs = db.as_retriever().invoke(query)
     query_context = format_context(query_docs)
 
     return query_context
         
 if __name__ == "__main__":
-    # To create DB Collection
+    # To create DB Collection -- run ONCE ONLY when loading in data
     docs = []
     with open('./backend/data/derma_facts.txt', 'r', encoding='utf-8') as f:
         for line in f:
@@ -51,7 +48,7 @@ if __name__ == "__main__":
 
     COLLECTION_NAME = "derma"
 
-    # This creates a persistent vector store (a SQL table). You should run this ONCE only
+    # Creates a persistent vector store in IRIS
     db = IRISVector.from_documents(
         embedding=embedder,
         documents=docs,
