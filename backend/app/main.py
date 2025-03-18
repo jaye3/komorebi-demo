@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import asyncio
 from backend.app.database import engine
 from backend.app import models  # ✅ This now works because of __init__.py
 import os
@@ -8,7 +9,7 @@ load_dotenv()
 
 # Import API routes
 from backend.app.api.routes import doctor, patient, appointment, patient_conversation,patient_survey, chatbot_insights
-
+from backend.app.services.scheduler import start_scheduler
 
 app = FastAPI()
 

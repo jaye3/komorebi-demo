@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from datetime import datetime
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import (
-    Application, 
     CallbackQueryHandler,
     CommandHandler, 
     ContextTypes, 
@@ -16,11 +15,13 @@ from services.api_helper import create_to_api
 import time
 ##########
 load_dotenv()
-BOT_USERNAME="@Komorebi_KomoBot"
+BOT_USERNAME = os.getenv("BOT_HANDLE")
 ##########
+from app import app
 from services.gemini_response import gemini_response
 from services.registration_flow import *
 from services.book_appointment_flow import *
+from services.survey_flow import *
 from utils.states import *
 ##########
 
@@ -57,6 +58,18 @@ async def choose_action(update: Update, type: ContextTypes.DEFAULT_TYPE):
             buttons, resize_keyboard=True, one_time_keyboard=True, input_field_placeholder="How can I help you?"
         ),
     )
+
+########################################################
+
+# Handle scheduled task reply
+async def scheduler_reply_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()  
+    
+    if query.data == "reminder_task_done":
+        print("SCHEDULER: reminder task done")
+        await query.edit_message_text(f"Glad to know you've already put on your cream!\n\nA small step a day goes a long, long way ☺️")
+    
 #########################################################
 
 # Cancel action
@@ -162,10 +175,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
 if __name__ == "__main__":
     print("MAIN: Starting bot....")
 
-    TOKEN = os.getenv("TELEGRAM_TOKEN")
-    app = Application.builder().token(TOKEN).build()
-
-    STATE_KEYWORDS = ["Register", "Book Appointment"]
+    STATE_KEYWORDS = ["Register", "Book Appointment", "start_post_survey.*"]
 
     ####################
     # Registration Handling
@@ -201,6 +211,21 @@ if __name__ == "__main__":
         return
 
     # Survey
+    survey_handler = ConversationHandler(
+        # entry_points=[CallbackQueryHandler(post_survey_start_handler, pattern='^start_post_survey.*$')],
+        entry_points=[CallbackQueryHandler(post_survey_start_handler, pattern='^start_post_survey.*$')],
+        states={
+            POST_SURVEY_DOC: [CallbackQueryHandler(post_survey_doc_handler)],
+            POST_SURVEY_SYMPTOMS: [CallbackQueryHandler(post_survey_symptoms_handler)],
+            POST_SURVEY_SYMPTOMS_REMARKS: [MessageHandler(filters.TEXT, post_survey_symptoms_remarks_handler)],
+            POST_SURVEY_MED: [CallbackQueryHandler(post_survey_med_handler)],
+            POST_SURVEY_REMINDER: [CallbackQueryHandler(post_survey_reminder_handler)],
+            POST_SURVEY_FOLLOWUP: [CallbackQueryHandler(post_survey_followup_handler)],
+            POST_SURVEY_RATING: [CallbackQueryHandler(post_survey_rating_handler)],
+            POST_SURVEY_FEEDBACK: [MessageHandler(filters.TEXT, post_survey_feedback_handler)],
+        },
+        fallbacks=[CommandHandler("cancel", cancel)],
+    )
 
     # Debug catcher
     async def debug_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -213,6 +238,10 @@ if __name__ == "__main__":
     
 
     # Add Handlers 
+        # Scheduler handlers
+    app.add_handler(survey_handler)
+    app.add_handler(CallbackQueryHandler(scheduler_reply_handler))
+
         # Action handlers
     app.add_handler(reg_handler)
     app.add_handler(booking_handler)
