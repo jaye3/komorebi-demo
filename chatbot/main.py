@@ -184,7 +184,7 @@ if __name__ == "__main__":
         fallbacks=[CommandHandler("cancel", cancel)],
     )
 
-    # 🔹 Booking Conversation Handler
+    # Booking Conversation Handler
     booking_handler = ConversationHandler(
         entry_points=[MessageHandler(filters.Regex("(?i)^Book Appointment$"), booking_start_handler)],
         states={
@@ -195,15 +195,10 @@ if __name__ == "__main__":
         fallbacks=[CommandHandler("cancel", cancel)],
     )
 
-    # # 🔹 Management Conversation Handler
-    # manage_handler = ConversationHandler(
-    #     entry_points=[MessageHandler(filters.Regex("(?i)^Manage$"), manage_start)],
-    #     states={
-    #         MNG_CONTINUE: [MessageHandler(filters.TEXT, manage_continue)],
-    #         MNG_END: [MessageHandler(filters.TEXT, manage_end)],
-    #     },
-    #     fallbacks=[CommandHandler("cancel", cancel)],
-    # )
+    # Management Conversation Handler
+    async def manage_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Sorry! This feature isn't implemented yet. \n\nYou can click on /choose to explore our other actions, or say 'Hey Komo' to chat with me!")
+        return
 
     # Survey
 
@@ -218,9 +213,10 @@ if __name__ == "__main__":
     
 
     # Add Handlers 
-        # Registration handlers
+        # Action handlers
     app.add_handler(reg_handler)
     app.add_handler(booking_handler)
+    app.add_handler(MessageHandler(filters.Regex("(?i)^Manage$"), manage_handler))
 
         # Setting commands
     app.add_handler(CommandHandler('start', start_command))
