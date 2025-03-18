@@ -15,6 +15,7 @@ def retrieve_context(query: str):
     
     embedder = GeminiEmbeddings(API_KEY)
 
+    # Connecting to local IRIS instance
     CONNECTION_STRING = f'iris://{os.getenv("IRIS_USERNAME")}:{os.getenv("IRIS_PASSWORD")}@{os.getenv("IRIS_HOSTNAME")}:{os.getenv("IRIS_PORT")}/{os.getenv("IRIS_NAMESPACE")}'
     COLLECTION_NAME = "derma"
 
