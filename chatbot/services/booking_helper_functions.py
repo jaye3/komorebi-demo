@@ -22,7 +22,8 @@ async def get_available_appointments_in_groups(group_size = 4):
         if len(temp) == group_size:
             final_list.append(temp)
             temp = []
-    final_list.append(temp)
+    if temp:
+        final_list.append(temp)
     
     if final_list:
         return final_list

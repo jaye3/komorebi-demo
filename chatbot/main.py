@@ -225,22 +225,12 @@ if __name__ == "__main__":
             POST_SURVEY_FEEDBACK: [MessageHandler(filters.TEXT, post_survey_feedback_handler)],
         },
         fallbacks=[CommandHandler("cancel", cancel)],
-    )
-
-    # Debug catcher
-    async def debug_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        if update.message:
-            print(f"[DEBUG] Message received: {update.message.text!r}")
-        elif update.callback_query:
-            print(f"[DEBUG] Callback query received: {update.callback_query.data!r}")
-
-    app.add_handler(MessageHandler(filters.ALL, debug_all_messages), group=99)
-    
+    )    
 
     # Add Handlers 
-        # Scheduler handlers
-    app.add_handler(survey_handler)
-    app.add_handler(CallbackQueryHandler(scheduler_reply_handler))
+        # Scheduler handlers -- disabled temp
+    # app.add_handler(survey_handler)
+    # app.add_handler(CallbackQueryHandler(scheduler_reply_handler))
 
         # Action handlers
     app.add_handler(reg_handler)
@@ -263,6 +253,19 @@ if __name__ == "__main__":
 
     # Error handling
     app.add_error_handler(error)
+
+    #########################
+
+    # Debug catcher
+    async def debug_all_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if update.message:
+            print(f"[DEBUG] Message received: {update.message.text!r}")
+        elif update.callback_query:
+            print(f"[DEBUG] Callback query received: {update.callback_query.data!r}")
+
+    app.add_handler(MessageHandler(filters.ALL, debug_all_messages), group=99)
+
+    ########################
 
     # Ping for updates on msgs (checks every n seconds)
     print("MAIN: Polling bot...")
