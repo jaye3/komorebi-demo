@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain.docstore.document import Document
 from langchain_iris import IRISVector
-from backend.app.services.iris_helpers import *
+from backend.app.services.gemini_embedding import *
 load_dotenv()
 
 API_KEY = os.getenv("GEMINI_TEST_API")
