@@ -21,6 +21,7 @@ GET_ALL_CONVERSATIONS_URL="/conversations/getall/"
 GET_CONVERSATION_MSG_BY_ID_URL="/conversations/" # concatenate msg_id
 DELETE_CONVERSATION_MSG_BY_ID_URL="/conversations/" # concatenate msg_id
 GET_CONVERSATIONS_BY_PATIENT_URL="/conversations/patient/" # concatenate patient id
+GET_RECENT_CONVERSATIONS_BY_PATIENT_URL="/conversations/patient/recent/" # concatenate patient id
 
 POST_CREATE_SURVEY_RESPONSE_URL="/survey_responses/"
 GET_ALL_SURVEY_RESPONSES_URL="/survey_responses/getall/"

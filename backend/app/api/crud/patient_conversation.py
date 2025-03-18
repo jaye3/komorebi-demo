@@ -24,6 +24,10 @@ def get_conversation_by_id(db: Session, msg_id: int):
 def get_conversations_by_patient(db: Session, patient_id: int):
     return db.query(models.PatientConversation).filter(models.PatientConversation.patient_id == patient_id).all()
 
+def get_recent_conversations_by_patient(db: Session, patient_id: int):
+    # Returns the 7 most recent messages from the patient conversation
+    return db.query(models.PatientConversation).filter(models.PatientConversation.patient_id == patient_id).order_by(models.PatientConversation.date_time.desc()).limit(7).all()
+
 def delete_conversation(db: Session, msg_id: int):
     conversation = db.query(models.PatientConversation).filter(models.PatientConversation.msg_id == msg_id).first()
     if conversation:

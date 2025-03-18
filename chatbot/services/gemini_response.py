@@ -23,10 +23,12 @@ async def gemini_response(message, patient_id):
         data={},
         api_path=GET_INSIGHTS_QUERY_CONTEXT_URL + message
     )
-    past_conversation = await get_from_api(
+    past_conversation_data = await get_from_api(
         data={},
-        api_path=GET_CONVERSATIONS_BY_PATIENT_URL + str(patient_id)
+        api_path=GET_RECENT_CONVERSATIONS_BY_PATIENT_URL + str(patient_id)
     )
+
+    past_conversation = [msg["raw_message"] for msg in past_conversation_data]
 
     prompt = f'''You are a medical assistant of a specialist clinic that looks after your clients' wellbeing over text.
             Give a text message response of 25 words or less, sent as a single or 2 separated line.
@@ -38,7 +40,7 @@ async def gemini_response(message, patient_id):
     try:
         response = model.generate_content(prompt + message)
         print("MODEL res", response.text)
-        time.sleep(3)
+        time.sleep(2)
         return response.text
     except:
         return "Error"

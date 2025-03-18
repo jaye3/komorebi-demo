@@ -6,6 +6,7 @@ from backend.app.api.crud.patient_conversation import (
     get_all_conversations,
     get_conversation_by_id,
     get_conversations_by_patient,
+    get_recent_conversations_by_patient,
     delete_conversation
 )
 from backend.app.database import SessionLocal
@@ -42,6 +43,11 @@ def read_conversation(msg_id: int, db: Session = Depends(get_db)):
 def read_conversations_by_patient(patient_id: str, db: Session = Depends(get_db)):
     patient_id = int(patient_id)
     return get_conversations_by_patient(db, patient_id)
+
+@router.get("/patient/recent/{patient_id}")
+def read_recent_conversations_by_patient(patient_id: str, db: Session = Depends(get_db)):
+    patient_id = int(patient_id)
+    return get_recent_conversations_by_patient(db, patient_id)
 
 @router.delete("/{msg_id}")
 def remove_conversation(msg_id: int, db: Session = Depends(get_db)):
