@@ -27,7 +27,7 @@ Komorebi+ Web Portal serves as comprehensive solution for healthcare professiona
 
 
 #### Features:
-- **Dashboard**: Get a quick overview of daily operaions, patient statistics and doctor availability
+- **Dashboard**: Get a quick overview of daily operations, patient statistics and doctor availability
 - **Patient Management**: View patient records, medical history, and treatment plans
 - **Appointment Scheduling**: Dual calendar and list views for scheduling and managing appointments with doctors 
 - **Komo Insights**: AI-generated summaries, sentiment analytics, and insights of patient interaction for data
