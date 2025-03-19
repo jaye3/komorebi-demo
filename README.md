@@ -59,6 +59,7 @@ Built with Next.js, React, and Tailwind CSS, featuring a clean, accessible inter
 - Integration with backend services and databases
 - Implementation of user authentication and role-based access
 - Expanded reporting and AI capabilities
+- Enhance the ClinicalBERT model by training and testing it on a larger dataset derived from text mining real user feedback.
 
 **To run the frontend**
 
