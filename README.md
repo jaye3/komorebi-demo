@@ -7,16 +7,29 @@ Komorebi+ is an AI-powered patient engagement platform designed for specialized 
 
 [Watch our pitch video and prototype demonstration here!](https://www.youtube.com/watch?v=6OCESbkUncI)
 
+---
+
 ### 1. Meet Komo!
 Komo is our friendly chatbot partnered to the Komorebi+ system. Through Komo, we aim to make healthcare simple and accessible, no extra app needed. Patients can register, book appointments, and freely chat about their treatment progress or any worries. Details shared seamlessly with their doctors through our platform as Komo shares the common backend. 
 
 Powered by Gemini and Intersystems IRIS Vector Search, Komo provides personalised advice, follow-ups, and medication reminders for a smooth and holistic care experience.
+
+[Come try out Komo!](https://t.me/Komorebi_KomoBot) Do kindly be patient if responses are slow.
+
+#### Next Steps
+
+- Refine existing flows, and add Manage Appointment flow (among other flows as needed)
+- Integration with Komorebi+ web platform for insights
+- Expand to other popular messaging services (e.g. Whatsapp)
+- Set up remotely-hosted IRIS instance (if possible)
 
 *Note: for the Intersystems judging team, you may find our use of IRIS Vector Search in the following (but not limited to) these main files :*
 * ```backend > services > iris_vector_search.py``` (backend IRIS service)
 * ```backend > api > routes > chatbot_insights.py``` (vector search API routing)
 * ```chatbot > services > gemini_response.py``` (implementation in chatbot)
 *We tested this feature using a local IRIS container, using the footage to film our prototype videos.*
+
+---
 
 ### 2. Komorebi+ Web Portal
 Komorebi+ Web Portal serves as comprehensive solution for healthcare professionals to:
@@ -49,20 +62,21 @@ Built with Next.js, React, and Tailwind CSS, featuring a clean, accessible inter
 
 **To run the frontend**
 
-cd frontend
+```cd frontend```
 
 **To install packages**
 
-npm install --legacy-peer-deps
+```npm install --legacy-peer-deps```
 
 **If you encounter an ERESOLVE error, try**
 
-npm cache clean --force
-npm install --legacy-peer-deps
+```npm cache clean --force```
+
+```npm install --legacy-peer-deps```
 
 **Start dev server**
 
-npm run dev
+```npm run dev```
 
 
 
