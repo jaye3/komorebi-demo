@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Clock, Video, Phone } from "lucide-react"
 
-// Mock data - in a real app, this would come from your backend
+// Mock data
 const appointments = [
   {
     id: 1,
