@@ -21,6 +21,10 @@ async def booking_start_handler(update: Update, context: ContextTypes.DEFAULT_TY
     context.user_data["in_active_flow"] = True
 
     user_tele = update.message.from_user.username
+    if not user_tele:
+        await update.message.reply_text("Please set up a Telegram username to use our services!")
+        return ConversationHandler.END
+    
     user_info = await get_from_api(
         {}, GET_PATIENT_FIND_BY_TELEGRAM_URL + user_tele
         )
